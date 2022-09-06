@@ -3,7 +3,7 @@ import { useSignup } from "utils/firebase/firebase";
 import MyForm from "components/Form";
 
 export const signupPage = () => {
-  const { handleChangeEmail, handleCreateUser } = useSignup();
+  const { handleChangeEmail, handleCreateUser, error } = useSignup();
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,6 +29,7 @@ export const signupPage = () => {
         onSubmit={(e) => handleSubmit(e)}
         onChange={(e) => handleChangeEmail(e)}
         buttonStr="ユーザー登録"
+        error={error}
       />
     </div>
   );

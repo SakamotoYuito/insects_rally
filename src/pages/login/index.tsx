@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLogin } from "utils/firebase/firebase";
 import MyForm from "components/Form";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 export const loginPage = () => {
-  const { handleChangeEmail, handleSignInUser } = useLogin();
+  //   const router = useRouter();
+
+  const { handleChangeEmail, handleSignInUser, error } = useLogin();
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,6 +19,7 @@ export const loginPage = () => {
     }
     setValidated(true);
     await handleSignInUser();
+    console.log("a", error);
   };
   return (
     <div>
@@ -29,6 +33,7 @@ export const loginPage = () => {
         onSubmit={(e) => handleSubmit(e)}
         onChange={(e) => handleChangeEmail(e)}
         buttonStr="ログイン"
+        error={error}
       />
       <Link href="/signup">
         <p>初めての方はこちら</p>

@@ -11,13 +11,14 @@ interface Props {
   onSubmit(value?: any): void;
   onChange(value?: any): void;
   buttonStr: string;
+  error: string | null;
 }
 
 const MyForm: React.FunctionComponent<Props> = (props) => {
   return (
     <Form
       noValidate
-      validated={props.validated}
+      validated={props.validated && props.error !== null}
       onSubmit={(e) => props.onSubmit(e)}
     >
       <Form.Group controlId="validationCustom01">
@@ -31,6 +32,7 @@ const MyForm: React.FunctionComponent<Props> = (props) => {
         <Form.Control.Feedback type="invalid">
           {props.feedback}
         </Form.Control.Feedback>
+        {props.error && props.validated ? <p>{props.error}</p> : null}
       </Form.Group>
       <Button type="submit">{props.buttonStr}</Button>
     </Form>
