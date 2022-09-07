@@ -1,6 +1,6 @@
 .bar {
   border-bottom: 1px solid black;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .5);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .navlink {
@@ -13,6 +13,9 @@
   display: inline-block;
   vertical-align: middle;
   padding-right: 5px;
+  &:hover {
+    stroke: yellow;
+  }
 }
 
 .button {
