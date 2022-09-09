@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLogin } from "utils/firebase/firebase";
 import MyForm from "components/Form";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 export const loginPage = () => {
-  //   const router = useRouter();
-
   const { handleChangeEmail, handleSignInUser, error } = useLogin();
   const [validated, setValidated] = useState(false);
 
