@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import HomeIcon from "assets/icon/Footer/HomeIcon";
 import SearchIcon from "assets/icon/Footer/SearchIcon";
 import CameraIcon from "assets/icon/Footer/CameraIcon";
-import NoticeIcon from "assets/icon/Footer/NoticeIcon";
+import PictureIcon from "assets/icon/Footer/PictureIcon";
 import styles from "./style.module.scss";
 
 const Footer = () => {
@@ -24,6 +24,15 @@ const Footer = () => {
           </a>
         </Link>
       )}
+      {currentPath === "/picture" ? (
+        <PictureIcon ref={ref} current={true} />
+      ) : (
+        <Link href="/picture">
+          <a>
+            <PictureIcon ref={ref} current={false} />
+          </a>
+        </Link>
+      )}
       {currentPath === "/search" ? (
         <HomeIcon ref={ref} current={true} />
       ) : (
@@ -39,15 +48,6 @@ const Footer = () => {
         <Link href="/camera">
           <a>
             <CameraIcon ref={ref} current={false} />
-          </a>
-        </Link>
-      )}
-      {currentPath === "/notice" ? (
-        <NoticeIcon ref={ref} current={true} />
-      ) : (
-        <Link href="/notice">
-          <a>
-            <NoticeIcon ref={ref} current={false} />
           </a>
         </Link>
       )}
