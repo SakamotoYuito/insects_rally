@@ -13,8 +13,8 @@ export interface InsectsInfo {
   id: number;
   name: string;
   place: string;
-  classify: string;
-  season: string;
+  gender: string;
+  explain: string;
 }
 
 const HomeCard = (props: Props) => {
@@ -32,7 +32,7 @@ const HomeCard = (props: Props) => {
     <div>
       <h1>昆虫図鑑</h1>
       <Tabs defaultActiveKey="mt" id="fill-tab-example" className="mb-3" fill>
-        <Tab className={styles.card} eventKey="mt" title="山場">
+        <Tab className={styles.card} eventKey="mt" title="やま">
           <Row xs={2} md={2} className="g-4">
             {mtInsects.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
@@ -43,7 +43,7 @@ const HomeCard = (props: Props) => {
             ))}
           </Row>
         </Tab>
-        <Tab eventKey="rv" title="川場">
+        <Tab eventKey="rv" title="かわ">
           <Row xs={2} md={2}>
             {rvInsects.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
@@ -54,7 +54,7 @@ const HomeCard = (props: Props) => {
             ))}
           </Row>
         </Tab>
-        <Tab eventKey="gd" title="平地">
+        <Tab eventKey="gd" title="のはら">
           <Row xs={2} md={2} className="g-4">
             {gdInsects.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>

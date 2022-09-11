@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Image from "next/image";
+import kamakiri from "assets/img/kamakiri.jpg";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Badge from "react-bootstrap/Badge";
@@ -20,18 +22,13 @@ const CardComponent = (props: Props) => {
     <>
       <Card className={styles.card} onClick={() => appearToast()}>
         <Card.Header>{props.info.name}</Card.Header>
+        <Image src={kamakiri} />
         <ListGroup variant="flush">
           <ListGroup.Item>
             <Badge className={styles.badge} pill bg="primary">
-              分類
+              性別
             </Badge>
-            {props.info.classify}
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Badge className={styles.badge} pill bg="primary">
-              季節
-            </Badge>
-            {props.info.season}
+            {props.info.gender}
           </ListGroup.Item>
         </ListGroup>
       </Card>

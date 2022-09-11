@@ -6,10 +6,76 @@ import styles from "./style.module.scss";
 
 const Home: NextPage = () => {
   const cardItems = [
-    { id: 1, place: "mt", name: "アゲハ蝶", classify: "蝶類", season: "夏" },
-    { id: 2, place: "rv", name: "アゲハ蝶", classify: "蝶類", season: "夏" },
-    { id: 3, place: "rv", name: "アゲハ蝶", classify: "蝶類", season: "夏" },
-    { id: 4, place: "gd", name: "アゲハ蝶", classify: "蝶類", season: "夏" },
+    {
+      id: 1,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
+    {
+      id: 2,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
+    {
+      id: 3,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
+    {
+      id: 4,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
+    {
+      id: 5,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
+    {
+      id: 6,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
+    {
+      id: 7,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
+    {
+      id: 8,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
+    {
+      id: 9,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
+    {
+      id: 10,
+      place: "mt",
+      name: "例：カマキリ",
+      gender: "オス",
+      explain: "鋭い爪を持っている",
+    },
   ];
   return (
     <>

@@ -2,6 +2,8 @@ import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import { InsectsInfo } from "components/Card/HomeCard";
 import styles from "./style.module.scss";
+import Image from "next/image";
+import kamakiri from "assets/img/kamakiri.jpg";
 
 interface Props {
   info: InsectsInfo;
@@ -11,7 +13,7 @@ interface Props {
 
 const MyToast = (props: Props) => {
   return (
-    <ToastContainer className="p-3" position="middle-center">
+    <ToastContainer className={styles.container}>
       <Toast
         className={styles.toastBody}
         show={props.isShow}
@@ -19,14 +21,12 @@ const MyToast = (props: Props) => {
       >
         <Toast.Header>
           <strong className="me-auto">{props.info.name}</strong>
-          <small>Photo by </small>
+          <small>{props.info.gender}</small>
         </Toast.Header>
         <Toast.Body>
           <div>
-            <p>{props.info.id}</p>
-            <p>{props.info.season}</p>
-            <p>{props.info.classify}</p>
-            <p>{props.info.season}</p>
+            <Image src={kamakiri} />
+            <p>{props.info.explain}</p>
           </div>
         </Toast.Body>
       </Toast>
