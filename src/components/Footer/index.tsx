@@ -34,7 +34,7 @@ const Footer = () => {
         </Link>
       )}
       {currentPath === "/search" ? (
-        <HomeIcon ref={ref} current={true} />
+        <SearchIcon ref={ref} current={true} />
       ) : (
         <Link href="/search">
           <a>
