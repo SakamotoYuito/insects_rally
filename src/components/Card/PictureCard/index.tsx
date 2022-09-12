@@ -15,9 +15,10 @@ export interface InsectsInfo {
   place: string;
   gender: string;
   explain: string;
+  image: string;
 }
 
-const HomeCard = (props: Props) => {
+const PictureCard = (props: Props) => {
   const mtInsects = props.insectsInfo.filter(
     (object: InsectsInfo) => object.place === "mt"
   );
@@ -70,4 +71,4 @@ const HomeCard = (props: Props) => {
   );
 };
 
-export default HomeCard;
+export default PictureCard;

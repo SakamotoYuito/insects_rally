@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Layout from "pages/layout";
-import HomeCard from "components/Card/HomeCard";
+import HomeCard from "components/Card/PictureCard";
 
 const Home: NextPage = () => {
   const cardItems = [
@@ -10,6 +10,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
     {
       id: 2,
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
     {
       id: 3,
@@ -24,6 +26,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
     {
       id: 4,
@@ -31,6 +34,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
     {
       id: 5,
@@ -38,6 +42,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
     {
       id: 6,
@@ -45,6 +50,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
     {
       id: 7,
@@ -52,6 +58,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
     {
       id: 8,
@@ -59,6 +66,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
     {
       id: 9,
@@ -66,6 +74,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
     {
       id: 10,
@@ -73,6 +82,7 @@ const Home: NextPage = () => {
       name: "例：カマキリ",
       gender: "オス",
       explain: "鋭い爪を持っている",
+      image: "/kamakiri.jpg",
     },
   ];
   return (
