@@ -1,40 +1,53 @@
+import { useState } from "react";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
+import MyToast from "components/Toast";
 import styles from "./style.module.scss";
 
 export type QuizList = {
   id: number;
   title: string;
   place: "mt" | "rv" | "gd";
-  message?: string;
+  message: string;
   map?: string;
   congestion?: number;
   trophy?: boolean;
 };
 
 type Props = {
-  quiz: QuizList[];
+  quiz: QuizList;
 };
 
 const ListComponent = (props: Props) => {
+  const [isToastShow, setIsToastShow] = useState(false);
+  const appearToast = () => {
+    setIsToastShow(!isToastShow);
+  };
+
   return (
     <>
-      {props.quiz.map((quizObj: QuizList) => (
-        <ListGroup as="ol" key={quizObj.id}>
-          <ListGroup.Item
-            as="li"
-            className={`d-flex justify-content-between align-items-start ${styles.list}`}
-          >
-            <div className="ms-2 me-auto">
-              <div className="fw-bold">{quizObj.title}</div>
-              {quizObj.message !== undefined ? quizObj.message : null}
-            </div>
-            <Badge bg="primary" pill>
-              現在14人
-            </Badge>
-          </ListGroup.Item>
-        </ListGroup>
-      ))}
+      <ListGroup as="ol" onClick={() => appearToast()}>
+        <ListGroup.Item
+          as="li"
+          className={`d-flex justify-content-between align-items-start ${styles.list}`}
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">{props.quiz.title}</div>
+            {props.quiz.message !== undefined ? props.quiz.message : null}
+          </div>
+          <Badge bg="primary" pill>
+            現在14人
+          </Badge>
+        </ListGroup.Item>
+      </ListGroup>
+      <MyToast
+        title={props.quiz.title}
+        explain={props.quiz.message}
+        isShow={isToastShow}
+        onClose={() => appearToast()}
+        button="クイズに回答する"
+        buttonClick={() => setIsToastShow(true)}
+      />
     </>
   );
 };

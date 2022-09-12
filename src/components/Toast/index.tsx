@@ -8,13 +8,13 @@ import kamakiri from "assets/img/kamakiri.jpg";
 
 interface Props {
   title: string;
-  small?: string;
-  image?: string;
   explain: string;
-  button?: string;
-  buttonClick?(): void;
   isShow: boolean;
   onClose(): void;
+  small?: string;
+  image?: string;
+  button?: string;
+  buttonClick?(): void;
 }
 
 const MyToast = (props: Props) => {

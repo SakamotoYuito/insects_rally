@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import Layout from "pages/layout";
-import HomeCard from "components/Card/PictureCard";
+import PictureCard from "components/Card/PictureCard";
 
-const Home: NextPage = () => {
+const Picture: NextPage = () => {
   const cardItems = [
     {
       id: 1,
@@ -87,9 +87,9 @@ const Home: NextPage = () => {
   ];
   return (
     <Layout>
-      <HomeCard insectsInfo={cardItems} />
+      <PictureCard insectsInfo={cardItems} />
     </Layout>
   );
 };
 
-export default Home;
+export default Picture;
