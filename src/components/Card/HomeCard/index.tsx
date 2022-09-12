@@ -29,7 +29,7 @@ const HomeCard = (props: Props) => {
   );
 
   return (
-    <div>
+    <>
       <h1>昆虫図鑑</h1>
       <Tabs defaultActiveKey="mt" id="fill-tab-example" className="mb-3" fill>
         <Tab className={styles.card} eventKey="mt" title="やま">
@@ -66,7 +66,7 @@ const HomeCard = (props: Props) => {
           </Row>
         </Tab>
       </Tabs>
-    </div>
+    </>
   );
 };
 

@@ -1,7 +1,5 @@
 import { useState } from "react";
-import Header from "components/Header";
-import Footer from "components/Footer";
-import styles from "./style.module.scss";
+import Layout from "pages/layout";
 import dynamic from "next/dynamic";
 const RadarChartComponent = dynamic(() => import("../components/Chart"), {
   ssr: false,
@@ -9,14 +7,12 @@ const RadarChartComponent = dynamic(() => import("../components/Chart"), {
 
 const Home = () => {
   return (
-    <>
-      <Header />
-      <div className={styles.main}>
-        <h1>ステータス</h1>
-        <RadarChartComponent />
-      </div>
-      <Footer />
-    </>
+    <Layout>
+      <h1>ステータス</h1>
+      <RadarChartComponent />
+      <h1>ランク</h1>
+      <h2>昆虫博士</h2>
+    </Layout>
   );
 };
 

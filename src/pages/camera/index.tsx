@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Header from "components/Header";
-import Footer from "components/Footer";
+import Layout from "pages/layout";
 
 const camera = () => {
   const handleError = () => {};
@@ -8,10 +7,9 @@ const camera = () => {
   const handleScan = () => {};
   const [data, setData] = useState("No result");
   return (
-    <>
-      <Header />
-      <Footer />
-    </>
+    <Layout>
+      <h1>QRコードリーダー</h1>
+    </Layout>
   );
 };
 

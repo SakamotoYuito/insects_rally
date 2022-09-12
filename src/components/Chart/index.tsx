@@ -28,7 +28,11 @@ const RadarChartComponent = () => {
 
   return (
     <ResponsiveContainer width="100%" height={250}>
-      <RadarChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+      <RadarChart
+        title="図鑑完成度"
+        data={data}
+        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+      >
         <PolarGrid />
         <PolarAngleAxis dataKey="subject" />
         <PolarRadiusAxis />

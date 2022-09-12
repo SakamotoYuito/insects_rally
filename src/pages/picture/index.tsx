@@ -1,8 +1,6 @@
 import type { NextPage } from "next";
-import Header from "components/Header";
-import Footer from "components/Footer";
+import Layout from "pages/layout";
 import HomeCard from "components/Card/HomeCard";
-import styles from "./style.module.scss";
 
 const Home: NextPage = () => {
   const cardItems = [
@@ -78,13 +76,9 @@ const Home: NextPage = () => {
     },
   ];
   return (
-    <>
-      <Header />
-      <div className={styles.main}>
-        <HomeCard insectsInfo={cardItems} />
-      </div>
-      <Footer />
-    </>
+    <Layout>
+      <HomeCard insectsInfo={cardItems} />
+    </Layout>
   );
 };
 
