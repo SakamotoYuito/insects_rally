@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -8,13 +8,13 @@ interface Props {
   type: string;
   placeHolder: string;
   feedback: string;
-  onSubmit(value?: any): void;
-  onChange(value?: any): void;
+  onSubmit(value?: React.FormEvent<HTMLFormElement>): void;
+  onChange(value?: React.BaseSyntheticEvent): void;
   buttonStr: string;
   error: string | null;
 }
 
-const MyForm: React.FunctionComponent<Props> = (props) => {
+const MyTextForm: React.FunctionComponent<Props> = (props) => {
   return (
     <Form
       noValidate
@@ -39,4 +39,4 @@ const MyForm: React.FunctionComponent<Props> = (props) => {
   );
 };
 
-export default MyForm;
+export default MyTextForm;

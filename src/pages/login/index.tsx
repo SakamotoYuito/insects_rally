@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLogin } from "utils/firebase/firebase";
-import MyForm from "components/Form";
+import MyTextForm from "components/Form/TextForm";
 import Link from "next/link";
 
 export const loginPage = () => {
@@ -21,13 +21,15 @@ export const loginPage = () => {
   return (
     <div>
       <h1>タイトル</h1>
-      <MyForm
+      <MyTextForm
         validated={validated}
         label="ユーザーID"
         type="text"
         placeHolder="ユーザーID"
         feedback="ユーザーIDを入力してください"
-        onSubmit={(e) => handleSubmit(e)}
+        onSubmit={(e) => {
+          e !== undefined ? handleSubmit(e) : null;
+        }}
         onChange={(e) => handleChangeEmail(e)}
         buttonStr="ログイン"
         error={error}

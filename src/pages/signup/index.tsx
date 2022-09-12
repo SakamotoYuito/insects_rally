@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSignup } from "utils/firebase/firebase";
-import MyForm from "components/Form";
+import MyTextForm from "components/Form/TextForm";
 
 export const signupPage = () => {
   const { handleChangeEmail, handleCreateUser, error } = useSignup();
@@ -20,7 +20,7 @@ export const signupPage = () => {
   return (
     <div>
       <h1>タイトル</h1>
-      <MyForm
+      <MyTextForm
         validated={validated}
         label="ユーザーID"
         type="text"

@@ -2,6 +2,7 @@ import { useState } from "react";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
 import MyToast from "components/Toast";
+import { useRouter } from "next/router";
 import styles from "./style.module.scss";
 
 export type QuizList = {
@@ -22,6 +23,14 @@ const ListComponent = (props: Props) => {
   const [isToastShow, setIsToastShow] = useState(false);
   const appearToast = () => {
     setIsToastShow(!isToastShow);
+  };
+
+  const router = useRouter();
+  const onButtonClick = () => {
+    router.push({
+      pathname: "/quiz",
+      query: { id: props.quiz.id },
+    });
   };
 
   return (
@@ -46,7 +55,7 @@ const ListComponent = (props: Props) => {
         isShow={isToastShow}
         onClose={() => appearToast()}
         button="クイズに回答する"
-        buttonClick={() => setIsToastShow(true)}
+        buttonClick={() => onButtonClick()}
       />
     </>
   );
