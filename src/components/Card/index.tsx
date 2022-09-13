@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Image from "next/image";
-import kamakiri from "assets/img/kamakiri.jpg";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Badge from "react-bootstrap/Badge";
