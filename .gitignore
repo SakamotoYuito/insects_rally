@@ -35,5 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# *firebase*
-# *firestore*
+*firestore*
+firebase.json
+.firebaserc
+.firebase
+
+*.rules
