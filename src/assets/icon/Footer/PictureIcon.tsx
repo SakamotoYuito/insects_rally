@@ -5,7 +5,7 @@ type Props = {
   current: boolean;
 };
 
-const PictureIcon = forwardRef((props: Props, ref) => {
+const PictureIcon = forwardRef(function pictureIcon(props: Props, ref) {
   const isCurrent = props.current;
   return (
     <svg

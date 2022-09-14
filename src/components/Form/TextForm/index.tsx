@@ -8,8 +8,8 @@ interface Props {
   type: string;
   placeHolder: string;
   feedback: string;
-  onSubmit(value?: React.FormEvent<HTMLFormElement>): void;
-  onChange(value?: React.BaseSyntheticEvent): void;
+  onSubmit(value: React.FormEvent<HTMLFormElement>): void;
+  onChange(value: React.BaseSyntheticEvent): void;
   buttonStr: string;
   error: string | null;
 }

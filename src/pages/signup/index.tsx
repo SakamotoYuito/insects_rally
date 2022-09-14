@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSignup } from "utils/firebase/firebase";
 import MyTextForm from "components/Form/TextForm";
 
-export const signupPage = () => {
+export const useSignupPage = () => {
   const { handleChangeEmail, handleCreateUser, error } = useSignup();
   const [validated, setValidated] = useState(false);
 
@@ -35,4 +35,4 @@ export const signupPage = () => {
   );
 };
 
-export default signupPage;
+export default useSignupPage;

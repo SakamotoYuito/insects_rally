@@ -3,7 +3,7 @@ import { useLogin } from "utils/firebase/firebase";
 import MyTextForm from "components/Form/TextForm";
 import Link from "next/link";
 
-export const loginPage = () => {
+export const useLoginPage = () => {
   const { handleChangeEmail, handleSignInUser, error } = useLogin();
   const [validated, setValidated] = useState(false);
 
@@ -41,4 +41,4 @@ export const loginPage = () => {
   );
 };
 
-export default loginPage;
+export default useLoginPage;

@@ -5,7 +5,7 @@ type Props = {
   current: boolean;
 };
 
-const CameraIcon = forwardRef((props: Props, ref) => {
+const CameraIcon = forwardRef(function cameraIcon(props: Props, refs) {
   const isCurrent = props.current;
   return (
     <svg

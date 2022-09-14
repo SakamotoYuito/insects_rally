@@ -4,7 +4,7 @@ import Image from "next/image";
 import Layout from "pages/layout";
 import MyRadioForm from "components/Form/RadioForm";
 import MyTextForm from "components/Form/TextForm";
-import { useGetQuiz } from "./hook";
+import useGetQuiz from "./hook";
 import Check from "assets/icon/check.svg";
 import Cross from "assets/icon/cross.svg";
 import styles from "./style.module.scss";
