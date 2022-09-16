@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "components/Header/loginObserver";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const kitId = process.env.NEXT_PUBLIC_KID_ID;
   return (
     <>
       <Head>
@@ -13,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           dangerouslySetInnerHTML={{
             __html: `(function(d) {
               var config = {
-                kitId: 'orc6kol',
+                kitId: '${process.env.NEXT_PUBLIC_KID_ID}',
                 scriptTimeout: 3000,
                 async: true
               },

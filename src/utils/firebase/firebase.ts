@@ -10,12 +10,12 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 initializeApp({
-  apiKey: "AIzaSyDUyPgNlr4K6cP_R0skzOtnW-BawgdOKE0",
-  authDomain: "insect-rally.firebaseapp.com",
-  projectId: "insect-rally",
-  storageBucket: "insect-rally.appspot.com",
-  messagingSenderId: "635528997469",
-  appId: "1:635528997469:web:4bfbd3f0ebf51e29e8bbb4",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
 });
 
 export const auth = getAuth();
@@ -24,12 +24,12 @@ export const useSignup = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const password = "123456";
+  const password = process.env.NEXT_PUBLIC_PASSWORD!;
 
   const handleChangeEmail = (e: any) => {
     setError(null);
-    const tmp = e.currentTarget.value + "@example.com";
-    setEmail(tmp);
+    const email = e.currentTarget.value + "@example.com";
+    setEmail(email);
   };
 
   const handleCreateUser = async () => {
@@ -43,7 +43,6 @@ export const useSignup = () => {
       }
     }
   };
-  console.log(error);
 
   return {
     handleChangeEmail,
@@ -56,12 +55,12 @@ export const useLogin = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const password = "123456";
+  const password = process.env.NEXT_PUBLIC_PASSWORD!;
 
   const handleChangeEmail = (e: any) => {
     setError(null);
-    const tmp = e.currentTarget.value + "@example.com";
-    setEmail(tmp);
+    const addr = e.currentTarget.value + "@example.com";
+    setEmail(addr);
   };
 
   const handleSignInUser = async () => {
@@ -75,7 +74,6 @@ export const useLogin = () => {
     }
   };
 
-  console.log(error);
   return {
     handleChangeEmail,
     handleSignInUser,
