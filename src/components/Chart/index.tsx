@@ -10,17 +10,17 @@ import {
 const RadarChartComponent = () => {
   const data = [
     {
-      subject: "やま",
+      subject: "森林",
       A: 87,
       fullMark: 2,
     },
     {
-      subject: "かわ",
+      subject: "水辺",
       A: 35,
       fullMark: 2,
     },
     {
-      subject: "のはら",
+      subject: "野原",
       A: 90,
       fullMark: 2,
     },

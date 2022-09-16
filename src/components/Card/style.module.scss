@@ -1,6 +1,14 @@
 .card {
+  color: black;
+
   &:hover {
     border-color: blue;
+  }
+
+  img {
+    margin: auto;
+    width: 95%;
+    height: auto;
   }
 }
 
