@@ -33,7 +33,7 @@ const PictureCard = (props: Props) => {
     <>
       <h1>昆虫図鑑</h1>
       <Tabs defaultActiveKey="mt" id="fill-tab-example" className="mb-3" fill>
-        <Tab className={styles.card} eventKey="mt" title="やま">
+        <Tab className={styles.card} eventKey="mt" title="森林">
           <Row xs={2} md={2} className="g-4">
             {mtInsects.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
@@ -44,7 +44,7 @@ const PictureCard = (props: Props) => {
             ))}
           </Row>
         </Tab>
-        <Tab eventKey="rv" title="かわ">
+        <Tab eventKey="rv" title="水辺">
           <Row xs={2} md={2}>
             {rvInsects.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
@@ -55,7 +55,7 @@ const PictureCard = (props: Props) => {
             ))}
           </Row>
         </Tab>
-        <Tab eventKey="gd" title="のはら">
+        <Tab eventKey="gd" title="野原">
           <Row xs={2} md={2} className="g-4">
             {gdInsects.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>

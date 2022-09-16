@@ -1,0 +1,17 @@
+.title {
+  margin-bottom: 10px;
+}
+
+.table {
+  border-top: rgb(215, 215, 218) 1px solid;
+  border-bottom: rgb(215, 215, 218) 1px solid;
+
+  td:nth-of-type(2n-1) {
+    background-color: rgb(208, 206, 206);
+  }
+}
+
+.key {
+  width: 40%;
+  background-color: gray;
+}

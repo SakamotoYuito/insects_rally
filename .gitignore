@@ -41,3 +41,5 @@ firebase.json
 .firebase
 
 *.rules
+
+.github
