@@ -22,8 +22,8 @@ const TableComponent = (props: Props) => {
       </div>
       <Table className={styles.table}>
         <tbody>
-          {props.lines.map((line) => (
-            <tr>
+          {props.lines.map((line, index) => (
+            <tr key={index}>
               <td className={styles.key}>{line.key}</td>
               <td>{line.value}</td>
             </tr>
