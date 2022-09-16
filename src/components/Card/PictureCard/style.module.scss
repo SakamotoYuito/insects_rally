@@ -1,8 +1,13 @@
-.mb3 {
-  color: black;
-  background-color: black;
+.tab {
+  color: yellow !important;
+  border: 3px white dotted !important;
+  &:focus,
+  &:hover {
+    color: black !important;
+  }
 }
 
-#fill-tab-example {
-  width: 90%;
+.selected {
+  color: black;
+  border: 3px white dotted !important;
 }

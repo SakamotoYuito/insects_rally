@@ -17,8 +17,13 @@ const Header = () => {
   return (
     <Navbar className={styles.bar} collapseOnSelect expand="light" bg="">
       <Container>
-        <Navbar.Brand href="/">昆虫ラリー</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Brand className={styles.title} href="/">
+          昆虫ラリー
+        </Navbar.Brand>
+        <Navbar.Toggle
+          className={styles.toggle}
+          aria-controls="basic-navbar-nav"
+        />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
             <Nav.Link className={styles.navlink}>

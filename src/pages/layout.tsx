@@ -1,7 +1,6 @@
 import Header from "components/Header";
 import Footer from "components/Footer";
 import styles from "./style.module.scss";
-import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 
 type Props = {
@@ -10,13 +9,13 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <>
+    <div>
       <Header />
-      <main>
+      <main className={styles.layout}>
         <div className={styles.main}>{children}</div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
