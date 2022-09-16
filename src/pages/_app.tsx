@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(d) {
-              const config = {
+              var config = {
                 kitId: 'orc6kol',
                 scriptTimeout: 3000,
                 async: true
@@ -22,11 +22,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           }}
         />
       </Head>
-      <body>
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
-      </body>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </>
   );
 }
