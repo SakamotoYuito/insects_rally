@@ -8,6 +8,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { useLogout } from "utils/firebase/firebase";
+import tentoumushi from "assets/img/tentoumushi.png";
 
 const Header = () => {
   const { user } = useAuthContext();
@@ -18,7 +19,7 @@ const Header = () => {
     <Navbar className={styles.bar} collapseOnSelect expand="light" bg="">
       <Container>
         <Navbar.Brand className={styles.title} href="/">
-          昆虫ラリー
+          <div>昆虫ラリー</div>
         </Navbar.Brand>
         <Navbar.Toggle
           className={styles.toggle}

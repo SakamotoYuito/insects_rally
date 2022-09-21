@@ -1,8 +1,11 @@
 .card {
-  color: black;
+  color: white;
+  background-color: rgb(33, 183, 33);
+  border: 3px white dotted;
+  font-weight: bold;
 
   &:hover {
-    border-color: blue;
+    border: 3px yellow solid;
   }
 
   img {
@@ -10,6 +13,11 @@
     width: 95%;
     height: auto;
   }
+}
+
+.list {
+  color: white;
+  background-color: rgb(33, 183, 33);
 }
 
 .badge {

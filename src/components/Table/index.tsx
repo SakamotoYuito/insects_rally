@@ -17,7 +17,7 @@ const TableComponent = (props: Props) => {
     <>
       <div className={styles.title}>
         {props.title ? (
-          <ListGroup.Item variant="dark">{props.title}</ListGroup.Item>
+          <ListGroup.Item variant="light">{props.title}</ListGroup.Item>
         ) : null}
       </div>
       <Table className={styles.table}>
@@ -25,7 +25,7 @@ const TableComponent = (props: Props) => {
           {props.lines.map((line, index) => (
             <tr key={index}>
               <td className={styles.key}>{line.key}</td>
-              <td>{line.value}</td>
+              <td className={styles.value}>{line.value}</td>
             </tr>
           ))}
         </tbody>

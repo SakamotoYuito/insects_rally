@@ -22,7 +22,7 @@ const CardComponent = (props: Props) => {
         <Card.Header>{props.info.name}</Card.Header>
         <img src={props.info.image} />
         <ListGroup variant="flush">
-          <ListGroup.Item>
+          <ListGroup.Item className={styles.list}>
             <Badge className={styles.badge} pill bg="primary">
               性別
             </Badge>

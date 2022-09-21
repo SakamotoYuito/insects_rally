@@ -1,7 +1,9 @@
 .list {
   margin: 5px;
   color: black;
+  border: 3px black dotted;
+
   &:hover {
-    border-color: blue;
+    border: 3px yellow solid;
   }
 }
