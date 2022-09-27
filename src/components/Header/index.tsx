@@ -18,7 +18,7 @@ const Header = () => {
     <Navbar className={styles.bar} collapseOnSelect expand="light" bg="">
       <Container>
         <Navbar.Brand className={styles.title} href="/">
-          <div>昆虫ラリー</div>
+          <div>謎解き写真展</div>
         </Navbar.Brand>
         <Navbar.Toggle
           className={styles.toggle}
