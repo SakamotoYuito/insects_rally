@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: AuthProps) => {
     return () => {
       authStateChanged();
     };
-  }, []);
+  });
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

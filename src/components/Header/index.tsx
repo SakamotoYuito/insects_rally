@@ -8,7 +8,6 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { useLogout } from "utils/firebase/firebase";
-import tentoumushi from "assets/img/tentoumushi.png";
 
 const Header = () => {
   const { user } = useAuthContext();

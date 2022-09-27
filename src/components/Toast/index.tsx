@@ -1,10 +1,7 @@
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
-import { InsectsInfo } from "components/Card/PictureCard";
 import styles from "./style.module.scss";
-import Image from "next/image";
 import { Button } from "react-bootstrap";
-import kamakiri from "assets/img/kamakiri.jpg";
 
 interface Props {
   title: string;
@@ -32,7 +29,14 @@ const MyToast = (props: Props) => {
         <Toast.Body>
           <div>
             {props.image !== undefined ? (
-              <img className={styles.image} src={props.image} />
+              <picture>
+                <source srcSet={props.image} type="image/webp" />
+                <img
+                  className={styles.image}
+                  src={props.image}
+                  alt={props.title}
+                />
+              </picture>
             ) : null}
             <p>{props.explain}</p>
             {props.button !== undefined && props.buttonClick !== undefined ? (

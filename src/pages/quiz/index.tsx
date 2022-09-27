@@ -41,8 +41,12 @@ const Quiz = () => {
       <div className={styles.title}>
         <h1>問題{quizNumber}</h1>
         <div className={styles.clearMark}>
-          {isCorrect === true && isAnswered === true && <Image src={Check} />}
-          {isCorrect === false && isAnswered === true && <Image src={Cross} />}
+          {isCorrect === true && isAnswered === true && (
+            <Image src={Check} alt="クリア" />
+          )}
+          {isCorrect === false && isAnswered === true && (
+            <Image src={Cross} alt="ミス" />
+          )}
         </div>
       </div>
       <p className={styles.sentence}>{sentence}</p>

@@ -20,7 +20,10 @@ const CardComponent = (props: Props) => {
     <>
       <Card className={styles.card} onClick={() => appearToast()}>
         <Card.Header>{props.info.name}</Card.Header>
-        <img src={props.info.image} />
+        <picture>
+          <source srcSet={props.info.image} type="image/webp" />
+          <img src={props.info.image} alt={props.info.name} />
+        </picture>
         <ListGroup variant="flush">
           <ListGroup.Item className={styles.list}>
             <Badge className={styles.badge} pill bg="primary">

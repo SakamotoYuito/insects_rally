@@ -5,7 +5,8 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import React, { useState, useEffect } from "react";
+import { getFirestore } from "firebase/firestore";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
@@ -19,6 +20,7 @@ initializeApp({
 });
 
 export const auth = getAuth();
+export const db = getFirestore();
 
 export const useSignup = () => {
   const router = useRouter();
