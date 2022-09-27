@@ -39,7 +39,7 @@ const PictureCard = (props: Props) => {
 
   return (
     <>
-      <h1>昆虫図鑑</h1>
+      <h1>生きものずかん</h1>
       <Tabs
         defaultActiveKey="mt"
         id="fill-tab-example"
