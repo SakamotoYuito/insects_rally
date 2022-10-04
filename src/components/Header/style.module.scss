@@ -42,4 +42,9 @@
   background-color: yellow;
   color: black;
   border-color: yellow;
+
+  &:hover {
+    color: white;
+    background-color: green;
+  }
 }

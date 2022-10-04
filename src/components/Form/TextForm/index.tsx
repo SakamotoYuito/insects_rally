@@ -1,10 +1,11 @@
-import React, { FormEvent } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import styles from "./style.module.scss";
 
 interface Props {
   validated: boolean;
-  label: string;
+  label?: string;
   type: string;
   placeHolder: string;
   feedback: string;
@@ -22,7 +23,7 @@ const MyTextForm: React.FunctionComponent<Props> = (props) => {
       onSubmit={(e) => props.onSubmit(e)}
     >
       <Form.Group controlId="validationCustom01">
-        <Form.Label>{props.label}</Form.Label>
+        {props.label ? <Form.Label>{props.label}</Form.Label> : null}
         <Form.Control
           required
           type={props.type}
@@ -34,7 +35,9 @@ const MyTextForm: React.FunctionComponent<Props> = (props) => {
         </Form.Control.Feedback>
         {props.error && props.validated ? <p>{props.error}</p> : null}
       </Form.Group>
-      <Button type="submit">{props.buttonStr}</Button>
+      <Button className={styles.button} type="submit">
+        {props.buttonStr}
+      </Button>
     </Form>
   );
 };

@@ -1,0 +1,11 @@
+.button {
+  background-color: yellow;
+  color: black;
+  border-color: yellow;
+  margin: 20px;
+
+  &:hover {
+    color: white;
+    background-color: green;
+  }
+}

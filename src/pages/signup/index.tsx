@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import { useSignup } from "utils/firebase";
 import MyTextForm from "components/Form/TextForm";
+import styles from "./style.module.scss";
 
 export const useSignupPage = () => {
   const { handleChangeEmail, handleCreateUser, error } = useSignup();
@@ -18,11 +20,15 @@ export const useSignupPage = () => {
   };
 
   return (
-    <div>
-      <h1>タイトル</h1>
+    <div className={styles.signUp}>
+      <h1 className={styles.title}>
+        謎解き写真展
+        <br />
+        新規登録
+      </h1>
       <MyTextForm
         validated={validated}
-        label="ユーザーID"
+        label="好きな名前で登録してください"
         type="text"
         placeHolder="ユーザーID"
         feedback="ユーザーIDを入力してください"
@@ -31,6 +37,9 @@ export const useSignupPage = () => {
         buttonStr="ユーザー登録"
         error={error}
       />
+      <Link href="/login">
+        <p className={styles.link}>すでに登録している方はこちら</p>
+      </Link>
     </div>
   );
 };
