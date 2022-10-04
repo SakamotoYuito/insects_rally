@@ -43,7 +43,7 @@ const PictureCard = (props: Props) => {
       <Tabs
         defaultActiveKey="mt"
         id="fill-tab-example"
-        className="mb-3 "
+        className="mb-3"
         fill
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => tabClick(e)}
       >

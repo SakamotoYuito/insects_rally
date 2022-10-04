@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSignup } from "utils/firebase/firebase";
+import { useSignup } from "utils/firebase";
 import MyTextForm from "components/Form/TextForm";
 
 export const useSignupPage = () => {

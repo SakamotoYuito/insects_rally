@@ -5,22 +5,32 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  Timestamp,
+} from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+import writeLog from "utils/writeLog";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-initializeApp({
+const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_APP_ID,
-});
+};
 
-export const auth = getAuth();
-export const db = getFirestore();
+const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 export const useSignup = () => {
   const router = useRouter();
@@ -36,7 +46,33 @@ export const useSignup = () => {
 
   const handleCreateUser = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await addDoc(collection(db, "users"), {
+        userName: userCredential.user.email?.split("@")[0],
+        uid: userCredential.user.uid,
+        checkIn: false,
+        mode: "none",
+        createdAt: Timestamp.now(),
+      });
+      await addDoc(collection(db, "userStatus"), {
+        uid: userCredential.user.uid,
+        status: "ビギナー",
+        state: "探索",
+        currentPlace: "none",
+        answered: 0,
+        chartData: { gd: 0, mt: 0, rv: 0 },
+        quests: Array(10).fill("unanswered"),
+      });
+      const logData = {
+        uid: userCredential.user.uid,
+        place: "start",
+        state: "signUp",
+      };
+      await writeLog(logData);
       router.push("/");
     } catch (err) {
       if (err instanceof Error) {

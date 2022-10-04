@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLogin } from "utils/firebase/firebase";
+import { useLogin } from "utils/firebase";
 import MyTextForm from "components/Form/TextForm";
 import Link from "next/link";
 
@@ -16,7 +16,6 @@ export const useLoginPage = () => {
     }
     setValidated(true);
     await handleSignInUser();
-    console.log("a", error);
   };
   return (
     <div>
