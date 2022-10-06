@@ -9,7 +9,7 @@ type Props = {
 
 type Line = {
   key: string;
-  value: string;
+  value: string | number;
 };
 
 const TableComponent = (props: Props) => {
