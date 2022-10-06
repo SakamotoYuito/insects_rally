@@ -11,7 +11,6 @@ const Footer = () => {
   const ref = useRef();
   const router = useRouter();
   const currentPath = router.pathname;
-  //   console.log(currentPath);
 
   return (
     <div className={styles.footer}>

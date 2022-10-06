@@ -11,7 +11,6 @@ import { useLogout } from "utils/firebase";
 
 const Header = () => {
   const { userInfo } = useAuthContext();
-  console.log(userInfo);
   const handleLogout = useLogout();
   const currentUserName = userInfo?.email?.split("@")[0];
 

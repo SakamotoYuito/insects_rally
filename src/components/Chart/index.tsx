@@ -6,24 +6,10 @@ import {
   RadarChart,
   ResponsiveContainer,
 } from "recharts";
-import {
-  collection,
-  query,
-  where,
-  onSnapshot,
-  getDocs,
-  Query,
-  DocumentData,
-} from "firebase/firestore";
-import { db, auth } from "utils/firebase";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { db } from "utils/firebase";
 import { useMemo, useState, useEffect } from "react";
 import { useAuthContext } from "components/Header/loginObserver";
-
-type Graph = {
-  subject: String;
-  value: Number;
-  fullMark: Number;
-};
 
 const RadarChartComponent = () => {
   const { userInfo } = useAuthContext();
@@ -47,6 +33,7 @@ const RadarChartComponent = () => {
         fullMark: 2,
       },
     ];
+    // eslint-disable-next-line
   }, [uid]);
 
   const [graphValue, setGraphValue] = useState(initGraphData);
@@ -55,9 +42,8 @@ const RadarChartComponent = () => {
     const usersCollectionRef = uid
       ? query(collection(db, "userStatus"), where("uid", "==", uid))
       : query(collection(db, "userStatus"), where("uid", "==", ""));
-    const unsub = onSnapshot(usersCollectionRef, (querySnapshot) => {
+    onSnapshot(usersCollectionRef, (querySnapshot) => {
       querySnapshot.docs.map((doc) => {
-        console.log(doc.data().chartData);
         initGraphData[0].value = doc.data().chartData.mt;
         initGraphData[1].value = doc.data().chartData.rv;
         initGraphData[2].value = doc.data().chartData.gd;
@@ -65,8 +51,6 @@ const RadarChartComponent = () => {
       });
     });
   }, [initGraphData, uid]);
-
-  console.log(graphValue);
 
   return (
     <ResponsiveContainer width="100%" height={250}>
