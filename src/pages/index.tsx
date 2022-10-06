@@ -31,7 +31,6 @@ const Home = () => {
       : query(collection(db, "userStatus"), where("uid", "==", ""));
     onSnapshot(usersCollectionRef, (querySnapshot) => {
       querySnapshot.docs.map((doc) => {
-        initLines[0].value = doc.data().status;
         setTableData(
           tableData.map((data, index) =>
             index === 0 ? { key: "ステータス", value: doc.data().status } : data
