@@ -10,9 +10,10 @@ import Button from "react-bootstrap/Button";
 import { useLogout } from "utils/firebase";
 
 const Header = () => {
-  const { user } = useAuthContext();
+  const { userInfo } = useAuthContext();
+  console.log(userInfo);
   const handleLogout = useLogout();
-  const currentUserName = user?.email?.split("@")[0];
+  const currentUserName = userInfo?.email?.split("@")[0];
 
   return (
     <Navbar className={styles.bar} collapseOnSelect expand="light" bg="">

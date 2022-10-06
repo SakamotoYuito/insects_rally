@@ -4,6 +4,7 @@ import {
   useState,
   useContext,
   useEffect,
+  useMemo,
 } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import type { User } from "firebase/auth";
@@ -12,7 +13,7 @@ import { useRouter } from "next/router";
 export type UserType = User | null;
 
 export type AuthContextProps = {
-  user: UserType;
+  userInfo: UserType;
 };
 
 export type AuthProps = {
@@ -28,16 +29,16 @@ export const useAuthContext = () => {
 export const AuthProvider = ({ children }: AuthProps) => {
   const router = useRouter();
   const auth = getAuth();
-  const [user, setUser] = useState<UserType>(null);
+  const [userInfo, setUserInfo] = useState<UserType>(null);
   const isAvailableForViewing =
     router.pathname === "/login" || router.pathname === "/signup";
   const value = {
-    user,
+    userInfo,
   };
 
   useEffect(() => {
     const authStateChanged = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
+      setUserInfo(user);
       !user && !isAvailableForViewing && (await router.push("/login"));
     });
     return () => {
