@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import HomeIcon from "assets/icon/Footer/HomeIcon";
 import SearchIcon from "assets/icon/Footer/SearchIcon";
-import CameraIcon from "assets/icon/Footer/CameraIcon";
+import CameraIcon from "assets/icon/Footer/AboutIcon";
 import PictureIcon from "assets/icon/Footer/PictureIcon";
 import styles from "./style.module.scss";
 
@@ -41,10 +41,10 @@ const Footer = () => {
           </a>
         </Link>
       )}
-      {currentPath === "/camera" ? (
+      {currentPath === "/about" ? (
         <CameraIcon ref={ref} current={true} />
       ) : (
-        <Link href="/camera">
+        <Link href="/about">
           <a>
             <CameraIcon ref={ref} current={false} />
           </a>

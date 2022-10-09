@@ -9,7 +9,7 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <div>
+    <div className={styles.body}>
       <Header />
       <main className={styles.layout}>
         <div className={styles.main}>{children}</div>

@@ -1,3 +1,7 @@
+.body {
+  height: -webkit-fill-available;
+}
+
 .main {
   padding: 80px 15px 80px 15px;
   overflow: scroll;
@@ -12,6 +16,7 @@
 
 .layout {
   height: 100vh;
+  min-height: -webkit-fill-available;
   background-color: rgb(33, 183, 33);
   color: white;
 }

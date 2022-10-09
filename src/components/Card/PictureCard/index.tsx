@@ -35,7 +35,7 @@ const PictureCard = (props: Props) => {
       <Tabs
         defaultActiveKey="mt"
         id="fill-tab-example"
-        className="mb-3"
+        className="mb-2"
         fill
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => tabClick(e)}
       >
@@ -45,7 +45,7 @@ const PictureCard = (props: Props) => {
           eventKey="mt"
           title="森林"
         >
-          <Row xs={2} md={3} className="g-4">
+          <Row xs={2} md={3} className="g-2">
             {props.mtCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
                 <div className={styles.card}>
