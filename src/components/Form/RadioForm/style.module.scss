@@ -12,3 +12,17 @@
 .check {
   margin: 10px;
 }
+
+.button {
+  Button {
+    background-color: yellow;
+    color: black;
+    border: none;
+
+    &:hover {
+      background-color: green;
+      color: white;
+      border: 1px solid black;
+    }
+  }
+}

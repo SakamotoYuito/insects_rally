@@ -40,7 +40,9 @@ const MyToast = (props: Props) => {
             ) : null}
             <p>{props.explain}</p>
             {props.button !== undefined && props.buttonClick !== undefined ? (
-              <Button onClick={props.buttonClick}>{props.button}</Button>
+              <div className={styles.button}>
+                <Button onClick={props.buttonClick}>{props.button}</Button>
+              </div>
             ) : null}
           </div>
         </Toast.Body>
