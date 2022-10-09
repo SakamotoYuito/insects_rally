@@ -24,14 +24,16 @@ const CardComponent = (props: Props) => {
           <source srcSet={props.info.image} type="image/webp" />
           <img src={props.info.image} alt={props.info.name} />
         </picture>
-        <ListGroup variant="flush">
-          <ListGroup.Item className={styles.list}>
-            <Badge className={styles.badge} pill bg="primary">
-              性別
-            </Badge>
-            {props.info.gender}
-          </ListGroup.Item>
-        </ListGroup>
+        {props.info.gender ? (
+          <ListGroup variant="flush">
+            <ListGroup.Item className={styles.list}>
+              <Badge className={styles.badge} pill bg="primary">
+                性別
+              </Badge>
+              {props.info.gender}
+            </ListGroup.Item>
+          </ListGroup>
+        ) : null}
       </Card>
       <MyToast
         title={props.info.name}

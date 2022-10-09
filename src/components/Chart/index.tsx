@@ -13,24 +13,23 @@ import { useAuthContext } from "components/Header/loginObserver";
 
 const RadarChartComponent = () => {
   const { userInfo } = useAuthContext();
-
   const uid = userInfo?.uid;
   const initGraphData = useMemo(() => {
     return [
       {
         subject: "森林",
         value: 0,
-        fullMark: 2,
+        fullMark: 10,
       },
       {
         subject: "水辺",
         value: 0,
-        fullMark: 2,
+        fullMark: 10,
       },
       {
         subject: "野原",
         value: 0,
-        fullMark: 2,
+        fullMark: 10,
       },
     ];
     // eslint-disable-next-line
@@ -60,7 +59,7 @@ const RadarChartComponent = () => {
       >
         <PolarGrid />
         <PolarAngleAxis stroke="#FFFFFF" dataKey="subject" />
-        <PolarRadiusAxis />
+        <PolarRadiusAxis domain={[0, 10]} />
         <Radar
           name="図鑑完成度"
           dataKey="value"

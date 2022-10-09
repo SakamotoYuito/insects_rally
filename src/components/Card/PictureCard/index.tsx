@@ -7,7 +7,9 @@ import CardComponent from "..";
 import styles from "./style.module.scss";
 
 interface Props {
-  insectsInfo: InsectsInfo[];
+  mtCardItems: InsectsInfo[];
+  rvCardItems: InsectsInfo[];
+  gdCardItems: InsectsInfo[];
 }
 
 export interface InsectsInfo {
@@ -22,15 +24,15 @@ export interface InsectsInfo {
 const PictureCard = (props: Props) => {
   const [selected, setSelected] = useState("mt");
 
-  const mtInsects = props.insectsInfo.filter(
-    (object: InsectsInfo) => object.place === "mt"
-  );
-  const rvInsects = props.insectsInfo.filter(
-    (object: InsectsInfo) => object.place === "rv"
-  );
-  const gdInsects = props.insectsInfo.filter(
-    (object: InsectsInfo) => object.place === "gd"
-  );
+  // const mtCardItems = props.insectsInfo.filter(
+  //   (object: InsectsInfo) => object.place === "mt"
+  // );
+  // const rvCardItems = props.insectsInfo.filter(
+  //   (object: InsectsInfo) => object.place === "rv"
+  // );
+  // const gdCardItems = props.insectsInfo.filter(
+  //   (object: InsectsInfo) => object.place === "gd"
+  // );
 
   const tabClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const id = (e.target as HTMLElement).id.split("-")[4];
@@ -54,7 +56,7 @@ const PictureCard = (props: Props) => {
           title="森林"
         >
           <Row xs={2} md={3} className="g-4">
-            {mtInsects.map((insectsInfoObj: InsectsInfo) => (
+            {props.mtCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
                 <div className={styles.card}>
                   <CardComponent info={insectsInfoObj} />
@@ -69,7 +71,7 @@ const PictureCard = (props: Props) => {
           title="水辺"
         >
           <Row xs={2} md={3}>
-            {rvInsects.map((insectsInfoObj: InsectsInfo) => (
+            {props.rvCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
                 <div className={styles.card}>
                   <CardComponent info={insectsInfoObj} />
@@ -84,7 +86,7 @@ const PictureCard = (props: Props) => {
           title="野原"
         >
           <Row xs={2} md={3} className="g-4">
-            {gdInsects.map((insectsInfoObj: InsectsInfo) => (
+            {props.gdCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
                 <div className={styles.card}>
                   <CardComponent info={insectsInfoObj} />
