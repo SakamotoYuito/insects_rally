@@ -1,7 +1,8 @@
 import Layout from "pages/layout";
 import PictureCard, { InsectsInfo } from "components/Card/PictureCard";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "utils/firebase";
+import { adminDB } from "utils/server";
+import { auth } from "utils/firebase";
+import { SSRProvider } from "@react-aria/ssr";
 
 type Props = {
   mtList: InsectsInfo[];
@@ -11,13 +12,15 @@ type Props = {
 
 const Picture = (props: Props) => {
   return (
-    <Layout>
-      <PictureCard
-        mtCardItems={props.mtList}
-        rvCardItems={props.rvList}
-        gdCardItems={props.gdList}
-      />
-    </Layout>
+    <SSRProvider>
+      <Layout>
+        <PictureCard
+          mtCardItems={props.mtList}
+          rvCardItems={props.rvList}
+          gdCardItems={props.gdList}
+        />
+      </Layout>
+    </SSRProvider>
   );
 };
 
@@ -26,8 +29,7 @@ export async function getStaticProps() {
   const rvList: InsectsInfo[] = [];
   const gdList: InsectsInfo[] = [];
 
-  const mtCollectionRef = collection(db, "pictures");
-  const querySnapshot = await getDocs(mtCollectionRef);
+  const querySnapshot = await adminDB.collection("pictures").get();
   querySnapshot.forEach((doc) => {
     const picture = doc.data().picture;
     const place = picture.place;
