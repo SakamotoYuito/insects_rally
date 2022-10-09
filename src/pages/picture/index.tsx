@@ -29,17 +29,17 @@ export async function getStaticProps() {
   const mtCollectionRef = collection(db, "pictures");
   const querySnapshot = await getDocs(mtCollectionRef);
   querySnapshot.forEach((doc) => {
-    const place = doc.data().picture.place;
-    console.log(place);
+    const picture = doc.data().picture;
+    const place = picture.place;
     switch (place) {
       case "mt":
-        mtList.push(doc.data().picture);
+        mtList.push(picture);
         break;
       case "rv":
-        rvList.push(doc.data().picture);
+        rvList.push(picture);
         break;
       case "gd":
-        gdList.push(doc.data().picture);
+        gdList.push(picture);
         break;
     }
   });

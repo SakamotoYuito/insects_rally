@@ -24,16 +24,6 @@ export interface InsectsInfo {
 const PictureCard = (props: Props) => {
   const [selected, setSelected] = useState("mt");
 
-  // const mtCardItems = props.insectsInfo.filter(
-  //   (object: InsectsInfo) => object.place === "mt"
-  // );
-  // const rvCardItems = props.insectsInfo.filter(
-  //   (object: InsectsInfo) => object.place === "rv"
-  // );
-  // const gdCardItems = props.insectsInfo.filter(
-  //   (object: InsectsInfo) => object.place === "gd"
-  // );
-
   const tabClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const id = (e.target as HTMLElement).id.split("-")[4];
     setSelected(id);
