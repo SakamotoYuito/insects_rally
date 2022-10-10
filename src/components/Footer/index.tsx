@@ -7,14 +7,18 @@ import CameraIcon from "assets/icon/Footer/AboutIcon";
 import PictureIcon from "assets/icon/Footer/PictureIcon";
 import styles from "./style.module.scss";
 
-const Footer = () => {
+type Props = {
+  disabled: boolean;
+};
+
+const Footer = ({ disabled }: Props) => {
   const ref = useRef();
   const router = useRouter();
   const currentPath = router.pathname;
 
   return (
     <div className={styles.footer}>
-      {currentPath === "/" ? (
+      {currentPath === "/" || disabled === true ? (
         <HomeIcon ref={ref} current={true} />
       ) : (
         <Link href="/">
@@ -23,7 +27,7 @@ const Footer = () => {
           </a>
         </Link>
       )}
-      {currentPath === "/picture" ? (
+      {currentPath === "/picture" || disabled === true ? (
         <PictureIcon ref={ref} current={true} />
       ) : (
         <Link href="/picture">
@@ -32,7 +36,7 @@ const Footer = () => {
           </a>
         </Link>
       )}
-      {currentPath === "/search" ? (
+      {currentPath === "/search" || disabled === true ? (
         <SearchIcon ref={ref} current={true} />
       ) : (
         <Link href="/search">
@@ -41,7 +45,7 @@ const Footer = () => {
           </a>
         </Link>
       )}
-      {currentPath === "/about" ? (
+      {currentPath === "/about" || disabled === true ? (
         <CameraIcon ref={ref} current={true} />
       ) : (
         <Link href="/about">

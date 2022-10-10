@@ -5,16 +5,22 @@ import { ReactNode } from "react";
 
 type Props = {
   children?: ReactNode;
+  footer?: boolean;
 };
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, footer }: Props) => {
   return (
     <div className={styles.body}>
       <Header />
       <main className={styles.layout}>
         <div className={styles.main}>{children}</div>
       </main>
-      <Footer />
+      {footer === undefined ? (
+        <Footer disabled={false} />
+      ) : (
+        <Footer disabled={true} />
+      )}
+      :
     </div>
   );
 };
