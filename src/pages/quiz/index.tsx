@@ -16,10 +16,13 @@ type Props = {
 };
 
 type QuizDataForDisplay = {
+  id: number;
   type: "radioImage" | "radioText" | "form";
   sentence: string;
   choices: string[];
   answer: number;
+  place: "mt" | "rv" | "gd";
+  point: number;
 };
 
 const Quiz = (props: Props) => {
@@ -31,12 +34,14 @@ const Quiz = (props: Props) => {
   const buttonStr = "回答する";
   const router = useRouter();
 
-  const quizNumber = router.query.id;
+  const quizNumber = props.quiz.id;
   const type = props.quiz.type;
   const sentence = props.quiz.sentence;
   const choices = props.quiz.choices;
   const correctNumber = props.quiz.answer;
   const correctAnswer = choices[correctNumber - 1];
+  const place = props.quiz.place;
+  const point = props.quiz.point;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const form = e.currentTarget;
@@ -48,6 +53,13 @@ const Quiz = (props: Props) => {
     setValidated(true);
     setIsAnswered(true);
     correctAnswer === userAnswer ? setIsCorrect(true) : setIsCorrect(false);
+  };
+
+  const pushLoading = (isCorrect: boolean) => {
+    router.push({
+      pathname: "loading",
+      query: { id: quizNumber, place: place, point: point, answer: isCorrect },
+    });
   };
 
   return (
@@ -97,7 +109,7 @@ const Quiz = (props: Props) => {
             <h2 className={styles.answer}>正解：{correctAnswer}</h2>
           </div>
           <div className={styles.button}>
-            <Button>報酬を受け取る</Button>
+            <Button onClick={() => pushLoading(true)}>報酬を受け取る</Button>
           </div>
         </>
       )}
@@ -108,7 +120,7 @@ const Quiz = (props: Props) => {
             <h2 className={styles.answer}>正解：{correctAnswer}</h2>
           </div>
           <div className={styles.button}>
-            <Button>ホームへ戻る</Button>
+            <Button onClick={() => pushLoading(false)}>ホームへ戻る</Button>
           </div>
         </>
       )}
@@ -118,10 +130,13 @@ const Quiz = (props: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const quizDataForDisplay: QuizDataForDisplay = {
+    id: 0,
     type: "radioText",
     sentence: "",
     choices: [],
     answer: 0,
+    place: "mt",
+    point: 0,
   };
   const quizId = Number(context.query.id);
   const querySnapshot = await adminDB
@@ -130,10 +145,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     .get();
   querySnapshot.forEach((doc) => {
     const quizData = doc.data().quiz;
+    quizDataForDisplay.id = quizData.id;
     quizDataForDisplay.type = quizData.type;
     quizDataForDisplay.sentence = quizData.sentence;
     quizDataForDisplay.choices = quizData.choices;
     quizDataForDisplay.answer = quizData.answer;
+    quizDataForDisplay.place = quizData.place;
+    quizDataForDisplay.point = quizData.point;
   });
   return {
     props: {
