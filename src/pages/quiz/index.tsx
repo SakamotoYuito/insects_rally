@@ -10,6 +10,7 @@ import styles from "./style.module.scss";
 import { GetServerSideProps } from "next";
 import { adminDB } from "utils/server";
 import Button from "react-bootstrap/Button";
+import { useAuthContext } from "components/Header/loginObserver";
 
 type Props = {
   quiz: QuizDataForDisplay;
@@ -42,6 +43,8 @@ const Quiz = (props: Props) => {
   const correctAnswer = choices[correctNumber - 1];
   const place = props.quiz.place;
   const point = props.quiz.point;
+  const { userInfo } = useAuthContext();
+  const uid = userInfo?.uid;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const form = e.currentTarget;
@@ -56,9 +59,17 @@ const Quiz = (props: Props) => {
   };
 
   const pushLoading = (isCorrect: boolean) => {
+    const answerResult = isCorrect === true ? "correct" : "incorrect";
     router.push({
       pathname: "loading",
-      query: { id: quizNumber, place: place, point: point, answer: isCorrect },
+      query: {
+        status: "answer",
+        quizId: quizNumber,
+        place: place,
+        point: point,
+        answer: answerResult,
+        uid: uid,
+      },
     });
   };
 

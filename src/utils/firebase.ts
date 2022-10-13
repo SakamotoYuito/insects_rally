@@ -12,7 +12,7 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import writeLog from "utils/writeLog";
+import { writeLog } from "utils/writeLog";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";

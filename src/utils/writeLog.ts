@@ -1,7 +1,7 @@
 import { db } from "utils/firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 
-type Log = {
+export type Log = {
   uid: string;
   state: string;
   place: string;
@@ -9,7 +9,7 @@ type Log = {
 
 const logCollection = "userLog1029";
 
-const writeLog = async (log: Log) => {
+export const writeLog = async (log: Log) => {
   await addDoc(collection(db, logCollection), {
     uid: log.uid,
     state: log.state,
@@ -17,5 +17,3 @@ const writeLog = async (log: Log) => {
     time: Timestamp.now(),
   });
 };
-
-export default writeLog;
