@@ -31,7 +31,7 @@ export async function getStaticProps() {
 
   const querySnapshot = await adminDB.collection("pictures").get();
   querySnapshot.forEach((doc) => {
-    const picture = doc.data().picture;
+    const picture = doc.data() as InsectsInfo;
     const place = picture.place;
     switch (place) {
       case "mt":

@@ -16,7 +16,6 @@ export interface InsectsInfo {
   id: number;
   name: string;
   place: string;
-  gender: string;
   explain: string;
   image: string;
 }
@@ -45,7 +44,7 @@ const PictureCard = (props: Props) => {
           eventKey="mt"
           title="森林"
         >
-          <Row xs={2} md={3} className="g-2">
+          <Row xs={1} md={3} className="g-2">
             {props.mtCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
                 <div className={styles.card}>
