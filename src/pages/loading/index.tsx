@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import Layout from "pages/layout";
 import { adminDB } from "utils/server";
 import { GetServerSideProps } from "next";
-import { writeLog, Log } from "utils/writeLog";
+import { writeUserLog, writePlaceLog, UserLog, PlaceLog } from "utils/writeLog";
+import { ParsedUrlQuery } from "querystring";
 
 type Props = {
   preupdateData: PreupdateData;
@@ -23,24 +24,14 @@ type ChartData = {
   rv: number;
 };
 
-type Quests = "unanswered" | "correct" | "incorrect";
+type Quests = "unanswered" | "accept" | "correct" | "incorrect";
 
 const Loading = (props: Props) => {
   const router = useRouter();
   const queryPram = router.query;
-  const placeInfo =
-    (queryPram.place as string) + "-" + (queryPram.quizId as string);
-  console.log(placeInfo);
-  const log: Log = {
-    uid: queryPram.uid as string,
-    state: queryPram.status as string,
-    place: placeInfo,
-  };
+  const uid = queryPram.uid as string;
 
-  const addLog = async (log: Log) => {
-    await writeLog(log);
-  };
-  addLog(log);
+  writeLog(uid, queryPram);
 
   setTimeout(() => {
     router.push("/");
@@ -70,55 +61,84 @@ const getQuestPlaceInfo = (place: string) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const queryPram = context.query;
-  const uid = queryPram.uid;
+  const uid = queryPram.uid as string;
+  const placeInfo = `${queryPram.place as string}-${
+    queryPram.quizId as string
+  }`;
 
-  const preupdateData: PreupdateData = {
-    documentId: "",
-    status: "",
-    currentPlace: "none",
-    answered: 0,
-    chartData: { gd: 0, mt: 0, rv: 0 },
-    quests: ["unanswered"],
-  };
-
-  const querySnapshot = await adminDB
+  const userQuerySnapshot = await adminDB
     .collection("userStatus")
     .where("uid", "==", uid)
     .get();
-  querySnapshot.forEach((doc) => {
-    const docData = doc.data();
-    preupdateData.documentId = doc.id;
-    preupdateData.currentPlace = docData.currentPlace;
-    preupdateData.answered = docData.answered;
-    preupdateData.chartData = docData.chartData;
-    preupdateData.quests = docData.quests;
+  const [userDocData] = userQuerySnapshot.docs.map((doc) => {
+    return {
+      data: doc.data(),
+      id: doc.id,
+    };
   });
 
   // TODO: アップデートするデータ整形
-  const updatedChartData = preupdateData.chartData;
+  const updatedChartData = userDocData.data.chartData;
   const place = getQuestPlaceInfo(queryPram.place as string);
 
   if (queryPram.answer === "true") {
     updatedChartData[place] += 1;
   }
 
-  const updatedQuests = preupdateData.quests;
+  const updatedQuests = userDocData.data.quests;
   updatedQuests[(Number(queryPram.quizId) as number) - 1] =
     queryPram.answer as Quests;
 
   await adminDB
     .collection("userStatus")
-    .doc(preupdateData.documentId)
+    .doc(userDocData.id)
     .update({
-      status: "search",
-      answered: preupdateData.answered + 1,
+      state: "search",
+      answered: userDocData.data.answered + 1,
       chartData: updatedChartData,
       quests: updatedQuests,
     });
 
+  const placeQuerySnapshot = await adminDB
+    .collection("placeState")
+    .where("place", "==", placeInfo)
+    .get();
+  const [placeDocData] = placeQuerySnapshot.docs.map((doc) => {
+    return {
+      data: doc.data(),
+      id: doc.id,
+    };
+  });
+  const currentUids: string[] = placeDocData.data.uids;
+  const updateUids = currentUids.filter((n) => n !== uid);
+  await adminDB.collection("placeState").doc(placeDocData.id).update({
+    uids: updateUids,
+    congestion: updateUids.length,
+  });
+
   return {
     props: {},
   };
+};
+
+const writeLog = (uid: string, queryPram: ParsedUrlQuery) => {
+  const placeInfo = `${queryPram.place as string}-${
+    queryPram.quizId as string
+  }`;
+  const userLog: UserLog = {
+    uid: uid,
+    state: queryPram.status as string,
+    place: placeInfo,
+  };
+  const placeLog: PlaceLog = {
+    type: "qr",
+    place: placeInfo,
+    congestion: 3,
+  };
+  (async (userLog: UserLog, placeLog: PlaceLog) => {
+    await writeUserLog(userLog);
+    await writePlaceLog(placeLog);
+  })(userLog, placeLog);
 };
 
 export default Loading;
