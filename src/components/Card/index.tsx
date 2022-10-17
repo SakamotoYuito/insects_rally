@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import { InsectsInfo } from "./PictureCard";
 import styles from "./style.module.scss";
 import MyToast from "components/Toast";
+import Image from "next/image";
 
 type Props = {
   info: InsectsInfo;
@@ -22,6 +23,16 @@ const CardComponent = (props: Props) => {
           <source srcSet={props.info.image} type="image/webp" />
           <img src={props.info.image} alt={props.info.name} />
         </picture> */}
+        <div className={styles.image}>
+          <Image
+            src={props.info.image}
+            width={500}
+            height={500}
+            objectFit="contain"
+            alt={props.info.name}
+            quality={20}
+          />
+        </div>
       </Card>
       <MyToast
         title={props.info.name}

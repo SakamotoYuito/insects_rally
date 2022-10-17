@@ -2,6 +2,7 @@ import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import styles from "./style.module.scss";
 import { Button } from "react-bootstrap";
+import Image from "next/image";
 
 interface Props {
   title: string;
@@ -29,14 +30,14 @@ const MyToast = (props: Props) => {
         <Toast.Body>
           <div>
             {props.image !== undefined ? (
-              <picture>
-                <source srcSet={props.image} type="image/webp" />
-                <img
-                  className={styles.image}
-                  src={props.image}
-                  alt={props.title}
-                />
-              </picture>
+              <Image
+                src={props.image}
+                width={500}
+                height={500}
+                objectFit="contain"
+                alt={props.title}
+                quality={20}
+              />
             ) : null}
             <p>{props.explain}</p>
             {props.button !== undefined && props.buttonClick !== undefined ? (

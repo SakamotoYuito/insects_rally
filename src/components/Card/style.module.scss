@@ -3,12 +3,13 @@
   background-color: rgb(33, 183, 33);
   border: 3px white dotted;
   font-weight: bold;
+  height: 100%;
 
   &:hover {
     border: 3px yellow solid;
   }
 
-  img {
+  .image {
     padding: 5px;
     margin: auto;
     width: 100%;

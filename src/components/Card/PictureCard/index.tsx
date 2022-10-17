@@ -44,7 +44,7 @@ const PictureCard = (props: Props) => {
           eventKey="mt"
           title="森林"
         >
-          <Row xs={1} md={3} className="g-2">
+          <Row xs={2} md={3} className="g-2">
             {props.mtCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
                 <div className={styles.card}>
@@ -59,7 +59,7 @@ const PictureCard = (props: Props) => {
           eventKey="rv"
           title="水辺"
         >
-          <Row xs={2} md={3}>
+          <Row xs={2} md={3} className="g-2">
             {props.rvCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
                 <div className={styles.card}>
@@ -74,7 +74,7 @@ const PictureCard = (props: Props) => {
           eventKey="gd"
           title="野原"
         >
-          <Row xs={2} md={3} className="g-4">
+          <Row xs={2} md={3} className="g-2">
             {props.gdCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
                 <div className={styles.card}>
