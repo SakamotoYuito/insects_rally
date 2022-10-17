@@ -1,8 +1,7 @@
 import Layout from "pages/layout";
 import PictureCard, { InsectsInfo } from "components/Card/PictureCard";
 import { adminDB } from "utils/server";
-import { auth } from "utils/firebase";
-import { SSRProvider } from "@react-aria/ssr";
+// import { SSGProvider } from "@react-aria/ssg";
 
 type Props = {
   mtList: InsectsInfo[];
@@ -12,15 +11,15 @@ type Props = {
 
 const Picture = (props: Props) => {
   return (
-    <SSRProvider>
-      <Layout>
-        <PictureCard
-          mtCardItems={props.mtList}
-          rvCardItems={props.rvList}
-          gdCardItems={props.gdList}
-        />
-      </Layout>
-    </SSRProvider>
+    // <SSGProvider>
+    <Layout>
+      <PictureCard
+        mtCardItems={props.mtList}
+        rvCardItems={props.rvList}
+        gdCardItems={props.gdList}
+      />
+    </Layout>
+    // </SSGProvider>
   );
 };
 

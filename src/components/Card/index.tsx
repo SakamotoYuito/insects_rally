@@ -18,10 +18,10 @@ const CardComponent = (props: Props) => {
     <>
       <Card className={styles.card} onClick={() => appearToast()}>
         <Card.Header>{props.info.name}</Card.Header>
-        <picture>
+        {/* <picture>
           <source srcSet={props.info.image} type="image/webp" />
           <img src={props.info.image} alt={props.info.name} />
-        </picture>
+        </picture> */}
       </Card>
       <MyToast
         title={props.info.name}
