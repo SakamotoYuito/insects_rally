@@ -1,7 +1,6 @@
 import Layout from "pages/layout";
 import PictureCard, { InsectsInfo } from "components/Card/PictureCard";
 import { adminDB } from "utils/server";
-// import { SSGProvider } from "@react-aria/ssg";
 
 type Props = {
   mtList: InsectsInfo[];
@@ -11,7 +10,6 @@ type Props = {
 
 const Picture = (props: Props) => {
   return (
-    // <SSGProvider>
     <Layout>
       <PictureCard
         mtCardItems={props.mtList}
@@ -19,7 +17,6 @@ const Picture = (props: Props) => {
         gdCardItems={props.gdList}
       />
     </Layout>
-    // </SSGProvider>
   );
 };
 
