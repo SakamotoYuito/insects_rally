@@ -17,6 +17,7 @@ export type QuizList = {
 
 type Props = {
   quiz: QuizList;
+  valid: "unanswered" | "accept" | "correct" | "incorrect";
 };
 
 const ListComponent = (props: Props) => {
@@ -35,28 +36,44 @@ const ListComponent = (props: Props) => {
 
   return (
     <>
-      <ListGroup as="ol" onClick={() => appearToast()}>
-        <ListGroup.Item
-          as="li"
-          className={`d-flex justify-content-between align-items-start ${styles.list}`}
-        >
-          <div className="ms-2 me-auto">
-            <div className="fw-bold">{props.quiz.title}</div>
-            {props.quiz.message !== undefined ? props.quiz.message : null}
-          </div>
-          <Badge bg="primary" pill>
-            現在14人
-          </Badge>
-        </ListGroup.Item>
-      </ListGroup>
-      <MyToast
-        title={props.quiz.title}
-        explain={props.quiz.message}
-        isShow={isToastShow}
-        onClose={() => appearToast()}
-        button="クイズに回答する"
-        buttonClick={() => onButtonClick()}
-      />
+      {props.valid !== "unanswered" ? (
+        <div>
+          <ListGroup as="ol" onClick={() => appearToast()}>
+            <ListGroup.Item
+              as="li"
+              className={`d-flex justify-content-between align-items-start ${styles.list}`}
+            >
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">{props.quiz.title}</div>
+                {props.quiz.message !== undefined ? props.quiz.message : null}
+              </div>
+            </ListGroup.Item>
+          </ListGroup>
+          <MyToast
+            title={props.quiz.title}
+            explain={props.quiz.message}
+            isShow={isToastShow}
+            onClose={() => appearToast()}
+            button="クイズに回答する"
+            buttonClick={() => onButtonClick()}
+          />
+        </div>
+      ) : (
+        <>
+          <ListGroup as="ol">
+            <ListGroup.Item
+              as="li"
+              variant="dark"
+              className={`d-flex justify-content-between align-items-start ${styles.invalid}`}
+            >
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">{props.quiz.title}</div>
+                {props.quiz.message !== undefined ? props.quiz.message : null}
+              </div>
+            </ListGroup.Item>
+          </ListGroup>
+        </>
+      )}
     </>
   );
 };

@@ -13,23 +13,32 @@ import {
   updateDoc,
   DocumentData,
 } from "firebase/firestore";
+import { Button } from "react-bootstrap";
+import styles from "./style.module.scss";
 
 const Qrcode = () => {
   const router = useRouter();
   const queryPram = router.query;
   const { userInfo } = useAuthContext();
-  const uid = userInfo?.uid;
+  const uid = userInfo?.uid ?? "";
   const place = queryPram.place as string;
 
-  if (uid !== undefined) {
+  if (uid !== "") {
     updatePlaceState(uid, queryPram);
-    updateUserStatus(uid, place);
   }
 
   return (
     <Layout footer={false}>
-      <div>
-        <h2>データ更新中</h2>
+      <div className={styles.container}>
+        <Button
+          className={styles.button}
+          onClick={() => {
+            updateUserStatus(uid, place);
+            router.push("/search");
+          }}
+        >
+          このクイズを解放する
+        </Button>
       </div>
     </Layout>
   );

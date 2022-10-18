@@ -24,6 +24,7 @@ type QuizDataForDisplay = {
   answer: number;
   place: "mt" | "rv" | "gd";
   point: number;
+  status: "unanswered" | "accept" | "correct" | "incorrect";
 };
 
 const Quiz = (props: Props) => {
@@ -148,6 +149,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     answer: 0,
     place: "mt",
     point: 0,
+    status: "unanswered",
   };
   const quizId = Number(context.query.id);
   const querySnapshot = await adminDB
