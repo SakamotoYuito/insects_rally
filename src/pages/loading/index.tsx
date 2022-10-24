@@ -46,25 +46,10 @@ const Loading = (props: Props) => {
   );
 };
 
-const getQuestPlaceInfo = (place: string) => {
-  switch (place) {
-    case "mt":
-      return "mt";
-    case "rv":
-      return "rv";
-    case "gd":
-      return "gd";
-    default:
-      return "mt";
-  }
-};
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const queryPram = context.query;
   const uid = queryPram.uid as string;
-  const placeInfo = `${queryPram.place as string}-${
-    queryPram.quizId as string
-  }`;
+  const placeInfo = queryPram.place as string;
 
   const userQuerySnapshot = await adminDB
     .collection("userStatus")
@@ -79,9 +64,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // TODO: アップデートするデータ整形
   const updatedChartData = userDocData.data.chartData;
-  const place = getQuestPlaceInfo(queryPram.place as string);
+  const place = placeInfo.split("-")[0];
 
-  if (queryPram.answer === "true") {
+  if (queryPram.answer === "correct") {
     updatedChartData[place] += 1;
   }
 
@@ -122,9 +107,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const writeLog = (uid: string, queryPram: ParsedUrlQuery) => {
-  const placeInfo = `${queryPram.place as string}-${
-    queryPram.quizId as string
-  }`;
+  const placeInfo = queryPram.place as string;
   const userLog: UserLog = {
     uid: uid,
     state: queryPram.status as string,

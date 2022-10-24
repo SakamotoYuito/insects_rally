@@ -16,6 +16,10 @@ import {
 import { Button } from "react-bootstrap";
 import styles from "./style.module.scss";
 
+// QRコード：https://insects-rally.vercel.app/qr?type={type}&place={place}
+//{type} : クイズの問題→quiz, 図鑑用→picture
+//{place} : mt/rv/gd-スプレッドシートの番号
+
 const Qrcode = () => {
   const router = useRouter();
   const queryPram = router.query;
@@ -34,7 +38,10 @@ const Qrcode = () => {
           className={styles.button}
           onClick={() => {
             updateUserStatus(uid, place);
-            router.push("/search");
+            router.push({
+              pathname: "/quiz",
+              query: { place: place },
+            });
           }}
         >
           このクイズを解放する

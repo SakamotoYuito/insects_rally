@@ -1,6 +1,11 @@
+import { memo } from "react";
 import Layout from "pages/layout";
 import PictureCard, { InsectsInfo } from "components/Card/PictureCard";
 import { adminDB } from "utils/server";
+import { useState, useEffect } from "react";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { db } from "utils/firebase";
+import { useAuthContext } from "components/Header/loginObserver";
 
 type Props = {
   mtList: InsectsInfo[];
@@ -9,6 +14,9 @@ type Props = {
 };
 
 const Picture = (props: Props) => {
+  const { userInfo } = useAuthContext();
+  const uid = userInfo?.uid;
+
   return (
     <Layout>
       <PictureCard
@@ -27,17 +35,17 @@ export async function getStaticProps() {
 
   const querySnapshot = await adminDB.collection("pictures").get();
   querySnapshot.forEach((doc) => {
-    const picture = doc.data() as InsectsInfo;
-    const place = picture.place;
+    const data = doc.data() as InsectsInfo;
+    const place = data.place;
     switch (place) {
       case "mt":
-        mtList.push(picture);
+        mtList.push(data);
         break;
       case "rv":
-        rvList.push(picture);
+        rvList.push(data);
         break;
       case "gd":
-        gdList.push(picture);
+        gdList.push(data);
         break;
     }
   });

@@ -151,10 +151,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     point: 0,
     status: "unanswered",
   };
-  const quizId = Number(context.query.id);
+  const place = context.query.place;
   const querySnapshot = await adminDB
     .collection("quiz")
-    .where("quiz.id", "==", quizId)
+    .where("quiz.place", "==", place)
     .get();
   querySnapshot.forEach((doc) => {
     const quizData = doc.data().quiz;
