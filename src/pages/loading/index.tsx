@@ -5,33 +5,38 @@ import { GetServerSideProps } from "next";
 import { writeUserLog, writePlaceLog, UserLog, PlaceLog } from "utils/writeLog";
 import { ParsedUrlQuery } from "querystring";
 
-type Props = {
-  preupdateData: PreupdateData;
-};
+// type Props = {
+//   preupdateData: PreupdateData;
+// };
 
-type PreupdateData = {
-  documentId: string;
-  status: string;
-  currentPlace: "none" | number;
-  answered: number;
-  chartData: ChartData;
-  quests: Quests[];
-};
+// type PreupdateData = {
+//   documentId: string;
+//   status: string;
+//   currentPlace: "none" | number;
+//   answered: number;
+//   chartData: ChartData;
+//   quests: Quests[];
+// };
 
-type ChartData = {
-  gd: number;
-  mt: number;
-  rv: number;
-};
+// type ChartData = {
+//   gd: number;
+//   mt: number;
+//   rv: number;
+// };
 
 type Quests = "unanswered" | "accept" | "correct" | "incorrect";
 
-const Loading = (props: Props) => {
+type Props = {
+  congestion: number;
+  currentUids: string[];
+};
+
+const Loading = ({ congestion, currentUids }: Props) => {
   const router = useRouter();
   const queryPram = router.query;
   const uid = queryPram.uid as string;
 
-  writeLog(uid, queryPram);
+  writeLog(uid, queryPram, congestion, currentUids);
 
   setTimeout(() => {
     router.push("/");
@@ -102,11 +107,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
 
   return {
-    props: {},
+    props: {
+      congestion: updateUids.length,
+      currentUids: currentUids,
+    },
   };
 };
 
-const writeLog = (uid: string, queryPram: ParsedUrlQuery) => {
+const writeLog = (
+  uid: string,
+  queryPram: ParsedUrlQuery,
+  congestion: number,
+  currentUids: string[]
+) => {
   const placeInfo = queryPram.place as string;
   const userLog: UserLog = {
     uid: uid,
@@ -114,9 +127,10 @@ const writeLog = (uid: string, queryPram: ParsedUrlQuery) => {
     place: placeInfo,
   };
   const placeLog: PlaceLog = {
+    uids: currentUids,
     type: "qr",
     place: placeInfo,
-    congestion: 3,
+    congestion: congestion,
   };
   (async (userLog: UserLog, placeLog: PlaceLog) => {
     await writeUserLog(userLog);

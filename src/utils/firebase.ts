@@ -66,6 +66,11 @@ export const useSignup = () => {
         answered: 0,
         chartData: { gd: 0, mt: 0, rv: 0 },
         quests: Array(10).fill("unanswered"),
+        pictures: {
+          mt: new Array<boolean>(49).fill(false),
+          rv: new Array<boolean>(55).fill(false),
+          gd: new Array<boolean>(50).fill(false),
+        },
       });
       const logData = {
         uid: userCredential.user.uid,

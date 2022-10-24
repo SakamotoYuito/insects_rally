@@ -8,6 +8,7 @@ export type UserLog = {
 };
 
 export type PlaceLog = {
+  uids: string[];
   type: "qr" | "camera";
   place: string;
   congestion: number;
@@ -27,6 +28,7 @@ export const writeUserLog = async (log: UserLog) => {
 
 export const writePlaceLog = async (log: PlaceLog) => {
   await addDoc(collection(db, placeLogCollection), {
+    uids: log.uids,
     type: log.type,
     place: log.place,
     congestion: log.congestion,
