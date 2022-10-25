@@ -1,5 +1,5 @@
 import Layout from "pages/layout";
-import RadarChartComponent from "components/Chart";
+import MyProgressBar from "components/Progress";
 import TableComponent from "components/Table";
 import { useMemo, useState, useEffect } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
@@ -44,8 +44,7 @@ const Home = () => {
   return (
     <Layout>
       <h1>ステータス</h1>
-      <RadarChartComponent />
-      <TableComponent title="詳細情報" lines={tableData} />
+      <MyProgressBar />
     </Layout>
   );
 };
