@@ -3,7 +3,7 @@ import { useAuthContext } from "components/Header/loginObserver";
 import Layout from "pages/layout";
 import { Button } from "react-bootstrap";
 import styles from "./style.module.scss";
-import QrHook from "./hook";
+import QrHook from "utils/qr";
 
 // QRコード：https://insects-rally.vercel.app/qr?type={type}&place={place}
 // {type} : クイズの問題→quiz, 図鑑用→picture, 入り口→entrance, 出口→exit, チェックイン→checkin, チェックアウト→checkout
