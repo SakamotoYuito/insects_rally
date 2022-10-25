@@ -11,7 +11,6 @@ import { GetServerSideProps } from "next";
 import { adminDB } from "utils/server";
 import Button from "react-bootstrap/Button";
 import { useAuthContext } from "components/Header/loginObserver";
-import { stringLength } from "@firebase/util";
 
 // http://localhost:3000/quiz?area=A-1
 

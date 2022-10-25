@@ -1,52 +1,58 @@
 import Layout from "pages/layout";
 import MyProgressBar from "components/Progress";
-import TableComponent from "components/Table";
-import { useMemo, useState, useEffect } from "react";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "utils/firebase";
 import { useAuthContext } from "components/Header/loginObserver";
 
 const Home = () => {
+  const [progressValueList, setProgressValueList] = useState([0, 0, 0, 0]);
+  const [currentProgress, setCurrentProgress] = useState(0);
+  const [currentStatus, setCurrentStatus] = useState("");
   const { userInfo } = useAuthContext();
   const uid = userInfo?.uid;
 
-  const initLines = useMemo(() => {
-    return [
-      {
-        key: "ステータス",
-        value: "",
-      },
-      {
-        key: "トロフィー",
-        value: 10,
-      },
-    ];
-  }, []);
-
-  const [tableData, setTableData] = useState(initLines);
-
   useEffect(() => {
-    const usersCollectionRef = uid
-      ? query(collection(db, "userStatus"), where("uid", "==", uid))
-      : query(collection(db, "userStatus"), where("uid", "==", ""));
-    onSnapshot(usersCollectionRef, (querySnapshot) => {
+    (async () => {
+      const usersCollectionRef = uid
+        ? query(collection(db, "userStatus"), where("uid", "==", uid))
+        : query(collection(db, "userStatus"), where("uid", "==", ""));
+      const querySnapshot = await getDocs(usersCollectionRef);
       querySnapshot.docs.map((doc) => {
-        setTableData(
-          tableData.map((data, index) =>
-            index === 0 ? { key: "ステータス", value: doc.data().status } : data
-          )
-        );
+        const status = doc.data().status;
+        setCurrentStatus(status);
+        const progress = doc.data().progress > 100 ? 100 : doc.data().progress;
+        setCurrentProgress(progress);
+        setProgressValueList(calcProgressValue(progress));
       });
-    });
-    // eslint-disable-next-line
-  }, [initLines, uid]);
+    })();
+  }, [uid, currentProgress]);
 
   return (
     <Layout>
       <h1>ステータス</h1>
-      <MyProgressBar />
+      <MyProgressBar
+        currentStatus={currentStatus}
+        currentProgress={currentProgress}
+        progressValueList={progressValueList}
+      />
     </Layout>
   );
+};
+
+const calcProgressValue = (currentProgress: number) => {
+  const quotient = ~~(currentProgress / 25);
+  const remainder = currentProgress % 25;
+  const progressValueList = new Array<number>(4).fill(0).map((value, index) => {
+    if (index < quotient) {
+      return value + 25;
+    } else if (index === quotient) {
+      return value + remainder;
+    } else {
+      return value;
+    }
+  });
+  return progressValueList;
 };
 
 export default Home;
