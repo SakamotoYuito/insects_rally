@@ -11,9 +11,12 @@ import { GetServerSideProps } from "next";
 import { adminDB } from "utils/server";
 import Button from "react-bootstrap/Button";
 import { useAuthContext } from "components/Header/loginObserver";
+import { stringLength } from "@firebase/util";
+
+// http://localhost:3000/quiz?area=A-1
 
 type Props = {
-  quiz: QuizDataForDisplay;
+  quiz: QuizDataForDisplay[];
 };
 
 type QuizDataForDisplay = {
@@ -22,9 +25,12 @@ type QuizDataForDisplay = {
   sentence: string;
   choices: string[];
   answer: number;
-  place: "mt" | "rv" | "gd";
+  hint: string;
+  place: string;
   point: number;
   status: "unanswered" | "accept" | "correct" | "incorrect";
+  areaSymbol: string;
+  areaId: number;
 };
 
 const Quiz = (props: Props) => {
@@ -32,18 +38,22 @@ const Quiz = (props: Props) => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [validated, setValidated] = useState(false);
   const [userAnswer, setUserAnswer] = useState<string | number>("");
+  const [currentQuizNumber, setCurrentQuizNumber] = useState<number>(1);
 
   const buttonStr = "回答する";
   const router = useRouter();
 
-  const quizNumber = props.quiz.id;
-  const type = props.quiz.type;
-  const sentence = props.quiz.sentence;
-  const choices = props.quiz.choices;
-  const correctNumber = props.quiz.answer;
+  const propsData = props.quiz[currentQuizNumber - 1];
+
+  const quizNumber = propsData.id;
+  const type = propsData.type;
+  const sentence = propsData.sentence;
+  const choices = propsData.choices;
+  const correctNumber = propsData.answer;
   const correctAnswer = choices[correctNumber - 1];
-  const place = props.quiz.place;
-  const point = props.quiz.point;
+  const hint = propsData.hint;
+  const areaSymbol = propsData.areaSymbol;
+  const point = propsData.point;
   const { userInfo } = useAuthContext();
   const uid = userInfo?.uid;
 
@@ -56,7 +66,17 @@ const Quiz = (props: Props) => {
     }
     setValidated(true);
     setIsAnswered(true);
-    correctAnswer === userAnswer ? setIsCorrect(true) : setIsCorrect(false);
+    if (correctAnswer === userAnswer) {
+      setIsCorrect(true);
+    } else {
+      setIsCorrect(false);
+    }
+  };
+
+  const toNextQuiz = () => {
+    setCurrentQuizNumber(currentQuizNumber + 1);
+    setIsCorrect(null);
+    setIsAnswered(false);
   };
 
   const pushLoading = (isCorrect: boolean) => {
@@ -66,12 +86,17 @@ const Quiz = (props: Props) => {
       query: {
         status: "answer",
         quizId: quizNumber,
-        place: place,
+        place: areaSymbol,
         point: point,
         answer: answerResult,
         uid: uid,
       },
     });
+  };
+
+  const rechallenge = () => {
+    setIsCorrect(null);
+    setIsAnswered(false);
   };
 
   return (
@@ -121,7 +146,11 @@ const Quiz = (props: Props) => {
             <h2 className={styles.answer}>正解：{correctAnswer}</h2>
           </div>
           <div className={styles.button}>
-            <Button onClick={() => pushLoading(true)}>報酬を受け取る</Button>
+            {currentQuizNumber < 2 ? (
+              <Button onClick={() => toNextQuiz()}>次のクイズ</Button>
+            ) : (
+              <Button onClick={() => pushLoading(true)}>報酬を受け取る</Button>
+            )}
           </div>
         </>
       )}
@@ -129,10 +158,10 @@ const Quiz = (props: Props) => {
         <>
           <div className={styles.incorrect}>
             <p className={styles.announce}>ざんねん…不正解です…</p>
-            <h2 className={styles.answer}>正解：{correctAnswer}</h2>
+            <h2 className={styles.answer}>ヒント：{hint}</h2>
           </div>
           <div className={styles.button}>
-            <Button onClick={() => pushLoading(false)}>ホームへ戻る</Button>
+            <Button onClick={() => rechallenge()}>もう一度</Button>
           </div>
         </>
       )}
@@ -141,34 +170,20 @@ const Quiz = (props: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const quizDataForDisplay: QuizDataForDisplay = {
-    id: 0,
-    type: "radioText",
-    sentence: "",
-    choices: [],
-    answer: 0,
-    place: "mt",
-    point: 0,
-    status: "unanswered",
-  };
-  const place = context.query.place;
+  const quizDataList: QuizDataForDisplay[] = [];
+  const area = context.query.area;
   const querySnapshot = await adminDB
     .collection("quiz")
-    .where("quiz.place", "==", place)
+    .where("quiz.areaSymbol", "==", area as string)
+    .orderBy("quiz.areaId")
     .get();
   querySnapshot.forEach((doc) => {
     const quizData = doc.data().quiz;
-    quizDataForDisplay.id = quizData.id;
-    quizDataForDisplay.type = quizData.type;
-    quizDataForDisplay.sentence = quizData.sentence;
-    quizDataForDisplay.choices = quizData.choices;
-    quizDataForDisplay.answer = quizData.answer;
-    quizDataForDisplay.place = quizData.place;
-    quizDataForDisplay.point = quizData.point;
+    quizDataList.push(quizData);
   });
   return {
     props: {
-      quiz: quizDataForDisplay,
+      quiz: quizDataList,
     },
   };
 };

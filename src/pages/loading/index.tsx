@@ -5,25 +5,6 @@ import { GetServerSideProps } from "next";
 import { writeUserLog, writePlaceLog, UserLog, PlaceLog } from "utils/writeLog";
 import { ParsedUrlQuery } from "querystring";
 
-// type Props = {
-//   preupdateData: PreupdateData;
-// };
-
-// type PreupdateData = {
-//   documentId: string;
-//   status: string;
-//   currentPlace: "none" | number;
-//   answered: number;
-//   chartData: ChartData;
-//   quests: Quests[];
-// };
-
-// type ChartData = {
-//   gd: number;
-//   mt: number;
-//   rv: number;
-// };
-
 type Quests = "unanswered" | "accept" | "correct" | "incorrect";
 
 type Props = {
@@ -67,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   });
 
-  // TODO: アップデートするデータ整形
+  // TODO: 2倍にする処理
   const updatedChartData = userDocData.data.chartData;
   const place = placeInfo.split("-")[0];
 
@@ -91,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const placeQuerySnapshot = await adminDB
     .collection("placeState")
-    .where("place", "==", placeInfo)
+    .where("place", "==", place)
     .get();
   const [placeDocData] = placeQuerySnapshot.docs.map((doc) => {
     return {

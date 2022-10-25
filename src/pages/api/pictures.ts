@@ -7,7 +7,6 @@ export async function handler(req: NextApiRequest, res: NextApiResponse) {
   const querySnapshot = await adminDB.collection("pictures").get();
   querySnapshot.forEach((doc) => {
     response.push(doc.data() as InsectsInfo);
-    console.log(doc.data());
   });
   res.status(200);
 }
