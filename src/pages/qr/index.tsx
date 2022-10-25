@@ -3,7 +3,7 @@ import { useAuthContext } from "components/Header/loginObserver";
 import Layout from "pages/layout";
 import { Button } from "react-bootstrap";
 import styles from "./style.module.scss";
-import { updatePlaceState, updateUserStatus, updateUsers } from "./hook";
+import QrHook from "./hook";
 
 // QRコード：https://insects-rally.vercel.app/qr?type={type}&place={place}
 // {type} : クイズの問題→quiz, 図鑑用→picture, 入り口→entrance, 出口→exit, チェックイン→checkin, チェックアウト→checkout
@@ -11,6 +11,7 @@ import { updatePlaceState, updateUserStatus, updateUsers } from "./hook";
 // typeがcheckinの場合、mode={basic, avoidCongestion, avoidQuietness, avoidAll}
 
 const Qrcode = () => {
+  const { updatePlaceState, updateUserStatus, updateUsers } = QrHook();
   const router = useRouter();
   const queryPram = router.query;
   const { userInfo } = useAuthContext();
