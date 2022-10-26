@@ -1,6 +1,7 @@
 import Layout from "pages/layout";
 import MyProgressBar from "components/Progress";
-import TicketComponent, { TicketState } from "components/List/ticket";
+import TicketComponent from "components/List/ticket";
+import MapComponent from "components/Map";
 import { useState, useEffect } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "utils/firebase";
@@ -13,6 +14,7 @@ const Home = () => {
   const [ticketData, setTicketData] = useState<
     "before" | "publication" | "after"
   >("before");
+  const [rewardArea, setRewardArea] = useState("none");
   const [docId, setDocId] = useState("");
   const { userInfo } = useAuthContext();
   const uid = userInfo?.uid;
@@ -27,11 +29,13 @@ const Home = () => {
         const status = doc.data().status;
         const progress = doc.data().progress > 100 ? 100 : doc.data().progress;
         const ticket = doc.data().ticket;
+        const area = doc.data().reward;
         setCurrentStatus(status);
         setCurrentProgress(progress);
         setProgressValueList(calcProgressValue(progress));
         setTicketData(ticket);
         setDocId(doc.id);
+        setRewardArea(area);
       });
     })();
   }, [uid, currentProgress, ticketData]);
@@ -39,6 +43,7 @@ const Home = () => {
   return (
     <Layout>
       <h1>ステータス</h1>
+      <MapComponent area={rewardArea} />
       <MyProgressBar
         currentStatus={currentStatus}
         currentProgress={currentProgress}
