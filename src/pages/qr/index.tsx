@@ -49,7 +49,7 @@ const Qrcode = () => {
               updatePlaceState(uid, type, place);
               router.push({
                 pathname: "/quiz",
-                query: { place: place },
+                query: { area: place },
               });
             }}
           >

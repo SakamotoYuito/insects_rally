@@ -44,7 +44,7 @@ const Quiz = (props: Props) => {
 
   const propsData = props.quiz[currentQuizNumber - 1];
 
-  const quizNumber = propsData.id;
+  const quizNumber = propsData.areaId;
   const type = propsData.type;
   const sentence = propsData.sentence;
   const choices = propsData.choices;
@@ -145,7 +145,7 @@ const Quiz = (props: Props) => {
             <h2 className={styles.answer}>正解：{correctAnswer}</h2>
           </div>
           <div className={styles.button}>
-            {currentQuizNumber < 2 ? (
+            {currentQuizNumber < 5 ? (
               <Button onClick={() => toNextQuiz()}>次のクイズ</Button>
             ) : (
               <Button onClick={() => pushLoading(true)}>報酬を受け取る</Button>
@@ -169,15 +169,16 @@ const Quiz = (props: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const quizDataList: QuizDataForDisplay[] = [];
+  const quizDataList: object[] = [];
   const area = context.query.area;
+  console.log(area);
   const querySnapshot = await adminDB
     .collection("quiz")
-    .where("quiz.areaSymbol", "==", area as string)
-    .orderBy("quiz.areaId")
+    .where("areaSymbol", "==", area)
+    .orderBy("areaId")
     .get();
   querySnapshot.forEach((doc) => {
-    const quizData = doc.data().quiz;
+    const quizData = doc.data();
     quizDataList.push(quizData);
   });
   return {

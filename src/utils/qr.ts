@@ -69,8 +69,7 @@ export const updateUserStatus = (uid: string, type: string, place: string) => {
     switch (type) {
       case "quiz":
         const quests = docData.data.quests;
-        const quizId = Number(place.split("-")[1]);
-        quests[quizId - 1] = "accept";
+        quests[place] = "accept";
         await updateDoc(doc(db, "userStatus", docData.id), {
           currentPlace: place,
           quests: quests,
@@ -78,9 +77,11 @@ export const updateUserStatus = (uid: string, type: string, place: string) => {
         });
         break;
       case "entrance":
+        console.log("entrance", place);
         await updateDoc(doc(db, "userStatus", docData.id), {
           currentPlace: place,
         });
+        break;
       case "exit":
         // TODO: arrangementコレクションからクイズの配置情報を読み取って、userStatusコレクションのpicturesを更新する
         const pictures = docData.data.pictures;
@@ -88,6 +89,7 @@ export const updateUserStatus = (uid: string, type: string, place: string) => {
         await updateDoc(doc(db, "userStatus", docData.id), {
           currentPlace: "none",
         });
+        break;
     }
   })();
 };

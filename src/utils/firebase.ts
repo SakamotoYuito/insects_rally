@@ -38,6 +38,29 @@ export const useSignup = () => {
   const [error, setError] = useState<string | null>(null);
   const password = process.env.NEXT_PUBLIC_PASSWORD!;
 
+  const quests = {
+    "A-1": "unanswered",
+    "A-2": "unanswered",
+    "A-3": "unanswered",
+    "B-1": "unanswered",
+    "B-2": "unanswered",
+    "B-3": "unanswered",
+    "C-1": "unanswered",
+    "C-2": "unanswered",
+    "C-3": "unanswered",
+    "C-4": "unanswered",
+    "D-1": "unanswered",
+    "D-2": "unanswered",
+    "E-1": "unanswered",
+    "E-2": "unanswered",
+    "E-3": "unanswered",
+    "E-4": "unanswered",
+    "F-1": "unanswered",
+    "F-2": "unanswered",
+    "G-1": "unanswered",
+    "G-2": "unanswered",
+  };
+
   const handleChangeEmail = (e: any) => {
     setError(null);
     const email = e.currentTarget.value + "@example.com";
@@ -61,11 +84,13 @@ export const useSignup = () => {
       await addDoc(collection(db, "userStatus"), {
         uid: userCredential.user.uid,
         status: "ビギナー",
-        state: "探索",
+        state: "search",
         currentPlace: "none",
         answered: 0,
-        chartData: { gd: 0, mt: 0, rv: 0 },
-        quests: Array(10).fill("unanswered"),
+        quests: quests,
+        reward: "none",
+        ticket: "before",
+        progress: 0,
         pictures: {
           mt: new Array<boolean>(49).fill(false),
           rv: new Array<boolean>(55).fill(false),

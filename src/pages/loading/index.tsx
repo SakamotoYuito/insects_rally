@@ -49,16 +49,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
 
   // TODO: 2倍にする処理
-  const updatedChartData = userDocData.data.chartData;
+  const progress: number = userDocData.data.progress;
   const place = placeInfo.split("-")[0];
 
-  if (queryPram.answer === "correct") {
-    updatedChartData[place] += 1;
-  }
+  const updatedProgress =
+    queryPram.answer === "correct" ? progress + 1 : progress;
 
   const updatedQuests = userDocData.data.quests;
-  updatedQuests[(Number(queryPram.quizId) as number) - 1] =
-    queryPram.answer as Quests;
+  updatedQuests[placeInfo] = queryPram.answer as Quests;
 
   await adminDB
     .collection("userStatus")
@@ -66,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     .update({
       state: "search",
       answered: userDocData.data.answered + 1,
-      chartData: updatedChartData,
+      progress: updatedProgress,
       quests: updatedQuests,
     });
 
