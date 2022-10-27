@@ -20,7 +20,9 @@ const MapComponent = (props: Props) => {
       <div className={styles.image}>
         {areaSymbol !== "none" ? (
           <Image src={imagePath} alt="map" width={250} height={250} />
-        ) : null}
+        ) : (
+          <Image src="/1x/map_area0.png" alt="map" width={250} height={250} />
+        )}
       </div>
     </div>
   );
