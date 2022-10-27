@@ -83,7 +83,7 @@ export const useSignup = () => {
       });
       await addDoc(collection(db, "userStatus"), {
         uid: userCredential.user.uid,
-        status: "ビギナー",
+        status: "生き物好き",
         state: "search",
         currentPlace: "none",
         answered: 0,

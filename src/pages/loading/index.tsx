@@ -51,9 +51,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // TODO: 2倍にする処理
   const progress: number = userDocData.data.progress;
   const place = placeInfo.split("-")[0];
+  const rewardPlace = userDocData.data.reward;
+
+  const increasePoint = rewardPlace === place ? 10 : 5;
 
   const updatedProgress =
-    queryPram.answer === "correct" ? progress + 1 : progress;
+    queryPram.answer === "correct" ? progress + increasePoint : progress;
+  const updatedStatus = setStatus(updatedProgress);
 
   const updatedQuests = userDocData.data.quests;
   updatedQuests[placeInfo] = queryPram.answer as Quests;
@@ -66,6 +70,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       answered: userDocData.data.answered + 1,
       progress: updatedProgress,
       quests: updatedQuests,
+      status: updatedStatus,
     });
 
   const placeQuerySnapshot = await adminDB
@@ -115,6 +120,20 @@ const writeLog = (
     await writeUserLog(userLog);
     await writePlaceLog(placeLog);
   })(userLog, placeLog);
+};
+
+const setStatus = (progress: number) => {
+  if (progress < 25) {
+    return "生き物好き";
+  } else if (progress < 50) {
+    return "生き物探検家";
+  } else if (progress < 75) {
+    return "生き物ハンター";
+  } else if (progress < 100) {
+    return "生き物研究科";
+  } else if (progress === 100) {
+    return "生き物博士";
+  }
 };
 
 export default Loading;

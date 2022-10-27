@@ -11,23 +11,20 @@ import { writeUserLog, writePlaceLog, UserLog, PlaceLog } from "utils/writeLog";
 
 export const updatePlaceState = (uid: string, type: string, place: string) => {
   (async () => {
-    const collectionRef = query(
-      collection(db, "placeState"),
-      where("place", "==", place)
-    );
+    const collectionRef = query(collection(db, "placeState"));
     const querySnapshot = await getDocs(collectionRef);
-    const [docData] = querySnapshot.docs.map((doc) => {
-      return {
-        data: doc.data(),
-        id: doc.id,
-      };
+    console.log(place);
+    const [placeState] = querySnapshot.docs.map((doc) => {
+      const docData = doc.data();
+      return docData[place];
     });
-    const updateUids: Set<string> = new Set(docData.data.uids);
+    const updateUids: Set<string> = new Set(placeState.uids);
     switch (type) {
       case "entrance" || "quiz":
         updateUids.add(uid);
         break;
       case "exit":
+        console.log(uid);
         updateUids.delete(uid);
         break;
     }
@@ -39,9 +36,11 @@ export const updatePlaceState = (uid: string, type: string, place: string) => {
       congestion: congestion,
     };
     await writePlaceLog(placeLog);
-    await updateDoc(doc(db, "placeState", docData.id), {
-      congestion: congestion,
-      uids: Array.from(updateUids),
+    await updateDoc(doc(db, "placeState", "place"), {
+      [place]: {
+        congestion: congestion,
+        uids: Array.from(updateUids),
+      },
     });
   })();
 };
@@ -77,7 +76,6 @@ export const updateUserStatus = (uid: string, type: string, place: string) => {
         });
         break;
       case "entrance":
-        console.log("entrance", place);
         await updateDoc(doc(db, "userStatus", docData.id), {
           currentPlace: place,
         });

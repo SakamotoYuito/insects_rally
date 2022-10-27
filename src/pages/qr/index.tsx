@@ -22,13 +22,14 @@ const Qrcode = () => {
       : (queryPram.place as string);
 
   if (uid !== "") {
-    switch (type) {
-      case "entrance" || "exit":
+    const qrPlace = setQrPlace(type);
+    switch (qrPlace) {
+      case "room":
         updateUserStatus(uid, type, place);
         updatePlaceState(uid, type, place);
         router.push("/");
         break;
-      case "checkin" || "checkout":
+      case "front":
         const mode = queryPram.mode as string;
         updateUsers(uid, type, place, mode);
         setTimeout(() => {
@@ -79,6 +80,14 @@ const Qrcode = () => {
       )}
     </Layout>
   );
+};
+
+const setQrPlace = (type: string) => {
+  if (type === "entrance" || type === "exit") {
+    return "room";
+  } else if (type === "checkin" || type === "checkout") {
+    return "front";
+  }
 };
 
 export default Qrcode;
