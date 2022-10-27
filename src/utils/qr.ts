@@ -20,7 +20,10 @@ export const updatePlaceState = (uid: string, type: string, place: string) => {
     });
     const updateUids: Set<string> = new Set(placeState.uids);
     switch (type) {
-      case "entrance" || "quiz":
+      case "entrance":
+        updateUids.add(uid);
+        break;
+      case "quiz":
         updateUids.add(uid);
         break;
       case "exit":

@@ -6,19 +6,26 @@ import Row from "react-bootstrap/Row";
 import CardComponent from "..";
 import styles from "./style.module.scss";
 
-interface Props {
+type Props = {
   mtCardItems: InsectsInfo[];
   rvCardItems: InsectsInfo[];
   gdCardItems: InsectsInfo[];
-}
+  currentState: CurrentState;
+};
 
-export interface InsectsInfo {
+export type InsectsInfo = {
   id: number;
   name: string;
   place: string;
   explain: string;
   image: string;
-}
+};
+
+type CurrentState = {
+  mt: boolean[];
+  rv: boolean[];
+  gd: boolean[];
+};
 
 const PictureCard = (props: Props) => {
   const [selected, setSelected] = useState("mt");
@@ -50,9 +57,15 @@ const PictureCard = (props: Props) => {
           <Row xs={2} md={3} className="g-2">
             {props.mtCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
-                <div className={styles.card}>
-                  <CardComponent info={insectsInfoObj} />
-                </div>
+                {props.currentState.mt[insectsInfoObj.id - 1] === true ? (
+                  <div className={styles.card}>
+                    <CardComponent info={insectsInfoObj} isKnown={true} />
+                  </div>
+                ) : (
+                  <div className={styles.card}>
+                    <CardComponent info={insectsInfoObj} isKnown={false} />
+                  </div>
+                )}
               </Col>
             ))}
           </Row>
@@ -65,9 +78,15 @@ const PictureCard = (props: Props) => {
           <Row xs={2} md={3} className="g-2">
             {props.rvCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
-                <div className={styles.card}>
-                  <CardComponent info={insectsInfoObj} />
-                </div>
+                {props.currentState.rv[insectsInfoObj.id - 1] === true ? (
+                  <div className={styles.card}>
+                    <CardComponent info={insectsInfoObj} isKnown={true} />
+                  </div>
+                ) : (
+                  <div className={styles.card}>
+                    <CardComponent info={insectsInfoObj} isKnown={false} />
+                  </div>
+                )}
               </Col>
             ))}
           </Row>
@@ -80,9 +99,15 @@ const PictureCard = (props: Props) => {
           <Row xs={2} md={3} className="g-2">
             {props.gdCardItems.map((insectsInfoObj: InsectsInfo) => (
               <Col key={insectsInfoObj.id}>
-                <div className={styles.card}>
-                  <CardComponent info={insectsInfoObj} />
-                </div>
+                {props.currentState.gd[insectsInfoObj.id - 1] === true ? (
+                  <div className={styles.card}>
+                    <CardComponent info={insectsInfoObj} isKnown={true} />
+                  </div>
+                ) : (
+                  <div className={styles.card}>
+                    <CardComponent info={insectsInfoObj} isKnown={false} />
+                  </div>
+                )}
               </Col>
             ))}
           </Row>

@@ -18,6 +18,22 @@
   }
 }
 
+.unknown {
+  color: white;
+  background-color: rgb(33, 183, 33);
+  border: 3px white dotted;
+  font-weight: bold;
+  height: 100%;
+
+  .image {
+    padding: 5px;
+    margin: auto;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
 .list {
   color: white;
   background-color: rgb(33, 183, 33);
