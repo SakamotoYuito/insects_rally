@@ -32,16 +32,18 @@ const Picture = (props: Props) => {
 
   useEffect(() => {
     (async () => {
-      const correctionRef = uid
-        ? query(collection(db, "userStatus"), where("uid", "==", uid))
-        : query(collection(db, "userStatus"), where("uid", "==", ""));
-      const querySnapshot = await getDocs(correctionRef);
-      const [currentPicturesState] = querySnapshot.docs.map((doc) => {
-        const currentPicturesData = doc.data().pictures;
-        return currentPicturesData;
-      });
-      console.log(currentPicturesState);
-      setCurrentPictures(currentPicturesState);
+      if (uid !== undefined) {
+        const correctionRef = uid
+          ? query(collection(db, "userStatus"), where("uid", "==", uid))
+          : query(collection(db, "userStatus"), where("uid", "==", ""));
+        const querySnapshot = await getDocs(correctionRef);
+        const [currentPicturesState] = querySnapshot.docs.map((doc) => {
+          const currentPicturesData = doc.data().pictures;
+          return currentPicturesData;
+        });
+        console.log(currentPicturesState);
+        setCurrentPictures(currentPicturesState);
+      }
     })();
   }, [uid]);
 
@@ -78,6 +80,7 @@ export async function getServerSideProps() {
         break;
     }
   });
+  console.log(mtList);
 
   return {
     props: {

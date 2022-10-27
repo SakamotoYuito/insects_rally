@@ -6,6 +6,7 @@ import {
   doc,
   getDocs,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import { writeUserLog, writePlaceLog, UserLog, PlaceLog } from "utils/writeLog";
 
@@ -13,7 +14,6 @@ export const updatePlaceState = (uid: string, type: string, place: string) => {
   (async () => {
     const collectionRef = query(collection(db, "placeState"));
     const querySnapshot = await getDocs(collectionRef);
-    console.log(place);
     const [placeState] = querySnapshot.docs.map((doc) => {
       const docData = doc.data();
       return docData[place];
@@ -85,10 +85,18 @@ export const updateUserStatus = (uid: string, type: string, place: string) => {
         break;
       case "exit":
         // TODO: arrangementコレクションからクイズの配置情報を読み取って、userStatusコレクションのpicturesを更新する
-        const pictures = docData.data.pictures;
-        pictures.mt[0] = true;
+        const docSnap = await getDoc(doc(db, "picturesInRoom", place));
+        if (!docSnap.exists()) return;
+        const picturesInRoom: string[] = docSnap.data().pictures;
+        const currentPicturesState = docData.data.pictures;
+        picturesInRoom.forEach((data) => {
+          const place = data.split("-")[0];
+          const id = data.split("-")[1];
+          currentPicturesState[place][id] = true;
+        });
         await updateDoc(doc(db, "userStatus", docData.id), {
           currentPlace: "none",
+          pictures: currentPicturesState,
         });
         break;
     }
