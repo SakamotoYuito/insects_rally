@@ -42,7 +42,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <h1>ステータス</h1>
+      <h1>ホーム</h1>
       <MapComponent area={rewardArea} />
       <MyProgressBar
         currentStatus={currentStatus}

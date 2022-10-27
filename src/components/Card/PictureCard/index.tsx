@@ -31,7 +31,9 @@ const PictureCard = (props: Props) => {
   return (
     <>
       <h1>生きものずかん</h1>
-      <p>撮影場所</p>
+      <div className={styles.subtitle}>
+        <a>撮影場所</a>
+      </div>
       <Tabs
         defaultActiveKey="mt"
         id="fill-tab-example"
