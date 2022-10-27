@@ -36,7 +36,7 @@ const Footer = ({ disabled }: Props) => {
           </a>
         </Link>
       )}
-      {currentPath === "/search" || disabled === true ? (
+      {/* {currentPath === "/search" || disabled === true ? (
         <SearchIcon ref={ref} current={true} />
       ) : (
         <Link href="/search">
@@ -53,7 +53,7 @@ const Footer = ({ disabled }: Props) => {
             <CameraIcon ref={ref} current={false} />
           </a>
         </Link>
-      )}
+      )} */}
     </div>
   );
 };
