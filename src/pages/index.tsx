@@ -62,21 +62,6 @@ const Home = () => {
   );
 };
 
-// const calcProgressValue = (currentProgress: number) => {
-//   const quotient = ~~(currentProgress / 25);
-//   const remainder = currentProgress % 25;
-//   const progressValueList = new Array<number>(4).fill(0).map((value, index) => {
-//     if (index < quotient) {
-//       return value + 25;
-//     } else if (index === quotient) {
-//       return value + remainder;
-//     } else {
-//       return value;
-//     }
-//   });
-//   return progressValueList;
-// };
-
 const calcProgressValue = (currentProgress: number) => {
   if (currentProgress <= 25) {
     return [currentProgress, 0, 0, 0];
