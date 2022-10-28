@@ -61,6 +61,67 @@ export const useSignup = () => {
     "G-2": "unanswered",
   };
 
+  const initMtTrueList = [
+    "mt-4",
+    "mt-8",
+    "mt-20",
+    "mt-30",
+    "mt-33",
+    "mt-42",
+    "mt-44",
+    "mt-45",
+    "mt-46",
+    "mt-47",
+    "mt-48",
+    "mt-49",
+  ];
+  const mtList = new Array<boolean>(49).fill(false);
+  initMtTrueList.forEach((pictureId) => {
+    const id = Number(pictureId.split("-")[1]);
+    mtList[id] = true;
+  });
+
+  const initRvTrueList = [
+    "rv-4",
+    "rv-18",
+    "rv-29",
+    "rv-32",
+    "rv-33",
+    "rv-36",
+    "rv-38",
+    "rv-39",
+    "rv-41",
+    "rv-43",
+    "rv-45",
+    "rv-46",
+    "rv-47",
+    "rv-49",
+    "rv-52",
+  ];
+  const rvList = new Array<boolean>(49).fill(false);
+  initRvTrueList.forEach((pictureId) => {
+    const id = Number(pictureId.split("-")[1]);
+    rvList[id] = true;
+  });
+
+  const initGdTrueList = [
+    "gd-1",
+    "gd-4",
+    "gd-5",
+    "gd-9",
+    "gd-12",
+    "gd-14",
+    "gd-24",
+    "gd-29",
+    "gd-31",
+    "gd-32",
+  ];
+  const gdList = new Array<boolean>(49).fill(false);
+  initGdTrueList.forEach((pictureId) => {
+    const id = Number(pictureId.split("-")[1]);
+    gdList[id] = true;
+  });
+
   const handleChangeEmail = (e: any) => {
     setError(null);
     const email = e.currentTarget.value + "@example.com";
@@ -92,9 +153,9 @@ export const useSignup = () => {
         ticket: "before",
         progress: 0,
         pictures: {
-          mt: new Array<boolean>(49).fill(false),
-          rv: new Array<boolean>(55).fill(false),
-          gd: new Array<boolean>(50).fill(false),
+          mt: mtList,
+          rv: rvList,
+          gd: gdList,
         },
       });
       const logData = {
