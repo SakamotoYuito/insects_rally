@@ -75,11 +75,6 @@ export const useSignup = () => {
     "mt-48",
     "mt-49",
   ];
-  const mtList = new Array<boolean>(49).fill(false);
-  initMtTrueList.forEach((pictureId) => {
-    const id = Number(pictureId.split("-")[1]);
-    mtList[id] = true;
-  });
 
   const initRvTrueList = [
     "rv-4",
@@ -98,11 +93,6 @@ export const useSignup = () => {
     "rv-49",
     "rv-52",
   ];
-  const rvList = new Array<boolean>(49).fill(false);
-  initRvTrueList.forEach((pictureId) => {
-    const id = Number(pictureId.split("-")[1]);
-    rvList[id] = true;
-  });
 
   const initGdTrueList = [
     "gd-1",
@@ -116,11 +106,6 @@ export const useSignup = () => {
     "gd-31",
     "gd-32",
   ];
-  const gdList = new Array<boolean>(49).fill(false);
-  initGdTrueList.forEach((pictureId) => {
-    const id = Number(pictureId.split("-")[1]);
-    gdList[id] = true;
-  });
 
   const handleChangeEmail = (e: any) => {
     setError(null);
@@ -142,6 +127,23 @@ export const useSignup = () => {
         mode: "none",
         createdAt: Timestamp.now(),
       });
+      const mtList = new Array<boolean>(49).fill(false);
+      initMtTrueList.forEach((pictureId) => {
+        const id = Number(pictureId.split("-")[1]);
+        if (mtList[id - 1] === false) mtList[id - 1] = true;
+      });
+      const rvList = new Array<boolean>(48).fill(false);
+      initRvTrueList.forEach((pictureId) => {
+        const id = Number(pictureId.split("-")[1]);
+        if (rvList[id - 1] === false) rvList[id - 1] = true;
+      });
+      const gdList = new Array<boolean>(54).fill(false);
+      initGdTrueList.forEach((pictureId) => {
+        const id = Number(pictureId.split("-")[1]);
+        if (gdList[id - 1] === false) gdList[id - 1] = true;
+      });
+      console.log(mtList, rvList, gdList);
+
       await addDoc(collection(db, "userStatus"), {
         uid: userCredential.user.uid,
         status: "生き物好き",

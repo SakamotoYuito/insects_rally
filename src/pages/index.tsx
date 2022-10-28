@@ -3,7 +3,13 @@ import MyProgressBar from "components/Progress";
 import TicketComponent from "components/List/ticket";
 import MapComponent from "components/Map";
 import { useState, useEffect } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "utils/firebase";
 import { useAuthContext } from "components/Header/loginObserver";
 
@@ -20,11 +26,10 @@ const Home = () => {
   const uid = userInfo?.uid;
 
   useEffect(() => {
-    (async () => {
-      const usersCollectionRef = uid
-        ? query(collection(db, "userStatus"), where("uid", "==", uid))
-        : query(collection(db, "userStatus"), where("uid", "==", ""));
-      const querySnapshot = await getDocs(usersCollectionRef);
+    const usersCollectionRef = uid
+      ? query(collection(db, "userStatus"), where("uid", "==", uid))
+      : query(collection(db, "userStatus"), where("uid", "==", ""));
+    const unsubscribe = onSnapshot(usersCollectionRef, (querySnapshot) => {
       querySnapshot.docs.map((doc) => {
         const status = doc.data().status;
         const progress = doc.data().progress > 100 ? 100 : doc.data().progress;
@@ -37,7 +42,10 @@ const Home = () => {
         setDocId(doc.id);
         setRewardArea(area);
       });
-    })();
+    });
+    return () => {
+      unsubscribe();
+    };
   }, [uid, currentProgress, ticketData]);
 
   return (
