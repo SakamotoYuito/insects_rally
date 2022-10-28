@@ -11,6 +11,7 @@ import { GetServerSideProps } from "next";
 import { adminDB } from "utils/server";
 import Button from "react-bootstrap/Button";
 import { useAuthContext } from "components/Header/loginObserver";
+import { updatePlaceState } from "utils/qr";
 
 // http://localhost:3000/quiz?area=A-1
 
@@ -79,6 +80,10 @@ const Quiz = (props: Props) => {
   };
 
   const pushLoading = (isCorrect: boolean) => {
+    if (uid !== undefined) {
+      const area = router.query.area as string;
+      updatePlaceState(uid, "exit", area);
+    }
     const answerResult = isCorrect === true ? "correct" : "incorrect";
     router.push({
       pathname: "loading",

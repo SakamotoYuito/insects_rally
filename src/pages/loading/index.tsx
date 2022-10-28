@@ -53,10 +53,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const place = placeInfo.split("-")[0];
   const rewardPlace = userDocData.data.reward;
 
-  const increasePoint = rewardPlace === place ? 10 : 5;
+  const increasePoint = rewardPlace === place ? 7 : 5;
 
   const updatedProgress =
     queryPram.answer === "correct" ? progress + increasePoint : progress;
+  const updatedTicket = updatedProgress >= 100 ? "publication" : "before";
   const updatedStatus = setStatus(updatedProgress);
 
   const updatedQuests = userDocData.data.quests;
@@ -71,15 +72,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       progress: updatedProgress,
       quests: updatedQuests,
       status: updatedStatus,
+      ticket: updatedTicket,
     });
 
-  const placeDoc = await adminDB.collection("placeState").doc("place").get();
-  const placeDocData = {
-    data: placeDoc.data(),
-    id: placeDoc.id,
-  };
-  const currentUids: string[] = placeDocData.data?.uids;
-  const updateUids = currentUids.filter((n) => n !== uid);
+  const placeQuerySnapshot = await adminDB.collection("placeState").get();
+  const [placeDocData] = placeQuerySnapshot.docs.map((doc) => {
+    return {
+      data: doc.data(),
+      id: doc.id,
+    };
+  });
+
+  const currentUids = placeDocData.data[placeInfo];
+  const updateUids = [currentUids].filter((n) => n !== uid);
   await adminDB.collection("placeState").doc(placeDocData.id).update({
     uids: updateUids,
     congestion: updateUids.length,
@@ -118,16 +123,14 @@ const writeLog = (
 };
 
 const setStatus = (progress: number) => {
-  if (progress < 25) {
+  if (progress <= 25) {
     return "生き物好き";
-  } else if (progress < 50) {
+  } else if (progress <= 50) {
     return "生き物探検家";
-  } else if (progress < 75) {
+  } else if (progress <= 75) {
     return "生き物ハンター";
-  } else if (progress < 100) {
+  } else if (progress > 75) {
     return "生き物研究家";
-  } else if (progress === 100) {
-    return "生き物博士";
   }
 };
 

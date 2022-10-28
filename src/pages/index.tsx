@@ -62,19 +62,34 @@ const Home = () => {
   );
 };
 
+// const calcProgressValue = (currentProgress: number) => {
+//   const quotient = ~~(currentProgress / 25);
+//   const remainder = currentProgress % 25;
+//   const progressValueList = new Array<number>(4).fill(0).map((value, index) => {
+//     if (index < quotient) {
+//       return value + 25;
+//     } else if (index === quotient) {
+//       return value + remainder;
+//     } else {
+//       return value;
+//     }
+//   });
+//   return progressValueList;
+// };
+
 const calcProgressValue = (currentProgress: number) => {
-  const quotient = ~~(currentProgress / 25);
-  const remainder = currentProgress % 25;
-  const progressValueList = new Array<number>(4).fill(0).map((value, index) => {
-    if (index < quotient) {
-      return value + 25;
-    } else if (index === quotient) {
-      return value + remainder;
-    } else {
-      return value;
-    }
-  });
-  return progressValueList;
+  if (currentProgress <= 25) {
+    return [currentProgress, 0, 0, 0];
+  } else if (currentProgress <= 50) {
+    return [25, currentProgress - 25, 0, 0];
+  } else if (currentProgress <= 75) {
+    return [25, 25, currentProgress - 50, 0];
+  } else if (currentProgress <= 100) {
+    return [25, 25, 25, currentProgress - 75];
+  } else if (currentProgress > 100) {
+    return [25, 25, 25, 25];
+  }
+  return [0, 0, 0, 0];
 };
 
 export default Home;

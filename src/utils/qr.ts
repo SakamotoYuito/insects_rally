@@ -28,6 +28,7 @@ export const updatePlaceState = (uid: string, type: string, place: string) => {
         break;
       case "exit":
         updateUids.delete(uid);
+        console.log(updateUids);
         break;
     }
     const congestion = updateUids.size;
@@ -97,6 +98,14 @@ export const updateUserStatus = (uid: string, type: string, place: string) => {
         await updateDoc(doc(db, "userStatus", docData.id), {
           currentPlace: "none",
           pictures: currentPicturesState,
+        });
+        break;
+      case "lastTest":
+        // qr?type=lastTest&place=lastTest
+        const currentProgress = docData.data.progress;
+        await updateDoc(doc(db, "userStatus", docData.id), {
+          progress: currentProgress + 60,
+          status: "生き物博士",
         });
         break;
     }

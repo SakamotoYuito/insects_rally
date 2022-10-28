@@ -13,7 +13,7 @@ const MapComponent = (props: Props) => {
   return (
     <div className={styles.container}>
       {areaSymbol !== "none" ? (
-        <p className={styles.reward}>ポイント2倍スポット出現!</p>
+        <p className={styles.reward}>ポイント40%UPスポット出現!</p>
       ) : (
         <p className={styles.basic}>探索マップ</p>
       )}

@@ -36,6 +36,9 @@ const Qrcode = () => {
           router.push("/");
         }, 3000);
         break;
+      case "lastTest":
+        updateUserStatus(uid, type, "lastTest");
+        router.push("/");
     }
   }
 
@@ -87,6 +90,8 @@ const setQrPlace = (type: string) => {
     return "room";
   } else if (type === "checkin" || type === "checkout") {
     return "front";
+  } else if (type === "lastTest") {
+    return "lastTest";
   }
 };
 
