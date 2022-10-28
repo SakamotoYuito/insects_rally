@@ -98,6 +98,7 @@ export const updateUserStatus = (uid: string, type: string, place: string) => {
         await updateDoc(doc(db, "userStatus", docData.id), {
           currentPlace: "none",
           pictures: currentPicturesState,
+          reward: "none",
         });
         break;
       case "lastTest":
@@ -136,8 +137,9 @@ export const updateUsers = (
       place: place,
     };
     await writeUserLog(userLog);
+    const updatedCheckIn = docData.data.checkIn === true ? false : true;
     await updateDoc(doc(db, "users", docData.id), {
-      checkIn: true,
+      checkIn: updatedCheckIn,
       mode: mode,
     });
   })();
