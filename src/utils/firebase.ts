@@ -132,12 +132,12 @@ export const useSignup = () => {
         const id = Number(pictureId.split("-")[1]);
         if (mtList[id - 1] === false) mtList[id - 1] = true;
       });
-      const rvList = new Array<boolean>(48).fill(false);
+      const rvList = new Array<boolean>(55).fill(false);
       initRvTrueList.forEach((pictureId) => {
         const id = Number(pictureId.split("-")[1]);
         if (rvList[id - 1] === false) rvList[id - 1] = true;
       });
-      const gdList = new Array<boolean>(54).fill(false);
+      const gdList = new Array<boolean>(33).fill(false);
       initGdTrueList.forEach((pictureId) => {
         const id = Number(pictureId.split("-")[1]);
         if (gdList[id - 1] === false) gdList[id - 1] = true;

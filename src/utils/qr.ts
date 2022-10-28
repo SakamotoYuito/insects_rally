@@ -90,9 +90,10 @@ export const updateUserStatus = (uid: string, type: string, place: string) => {
         const currentPicturesState = docData.data.pictures;
         picturesInRoom.forEach((data) => {
           const place = data.split("-")[0];
-          const id = data.split("-")[1];
-          currentPicturesState[place][id] = true;
+          const id = Number(data.split("-")[1]);
+          currentPicturesState[place][id - 1] = true;
         });
+        console.log(currentPicturesState);
         await updateDoc(doc(db, "userStatus", docData.id), {
           currentPlace: "none",
           pictures: currentPicturesState,

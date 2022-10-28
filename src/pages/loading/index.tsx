@@ -125,7 +125,7 @@ const setStatus = (progress: number) => {
   } else if (progress < 75) {
     return "生き物ハンター";
   } else if (progress < 100) {
-    return "生き物研究科";
+    return "生き物研究家";
   } else if (progress === 100) {
     return "生き物博士";
   }
