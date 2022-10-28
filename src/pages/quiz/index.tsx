@@ -171,7 +171,6 @@ const Quiz = (props: Props) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const quizDataList: object[] = [];
   const area = context.query.area;
-  console.log(area);
   const querySnapshot = await adminDB
     .collection("quiz")
     .where("areaSymbol", "==", area)

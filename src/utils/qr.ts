@@ -27,7 +27,6 @@ export const updatePlaceState = (uid: string, type: string, place: string) => {
         updateUids.add(uid);
         break;
       case "exit":
-        console.log(uid);
         updateUids.delete(uid);
         break;
     }

@@ -142,7 +142,6 @@ export const useSignup = () => {
         const id = Number(pictureId.split("-")[1]);
         if (gdList[id - 1] === false) gdList[id - 1] = true;
       });
-      console.log(mtList, rvList, gdList);
 
       await addDoc(collection(db, "userStatus"), {
         uid: userCredential.user.uid,

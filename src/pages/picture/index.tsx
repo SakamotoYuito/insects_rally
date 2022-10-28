@@ -41,7 +41,6 @@ const Picture = (props: Props) => {
           const currentPicturesData = doc.data().pictures;
           return currentPicturesData;
         });
-        console.log(currentPicturesState);
         setCurrentPictures(currentPicturesState);
       }
     })();
@@ -80,7 +79,6 @@ export async function getServerSideProps() {
         break;
     }
   });
-  console.log(mtList);
 
   return {
     props: {

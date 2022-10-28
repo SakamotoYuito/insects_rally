@@ -73,17 +73,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       status: updatedStatus,
     });
 
-  const placeQuerySnapshot = await adminDB
-    .collection("placeState")
-    .where("place", "==", place)
-    .get();
-  const [placeDocData] = placeQuerySnapshot.docs.map((doc) => {
-    return {
-      data: doc.data(),
-      id: doc.id,
-    };
-  });
-  const currentUids: string[] = placeDocData.data.uids;
+  const placeDoc = await adminDB.collection("placeState").doc("place").get();
+  const placeDocData = {
+    data: placeDoc.data(),
+    id: placeDoc.id,
+  };
+  const currentUids: string[] = placeDocData.data?.uids;
   const updateUids = currentUids.filter((n) => n !== uid);
   await adminDB.collection("placeState").doc(placeDocData.id).update({
     uids: updateUids,
