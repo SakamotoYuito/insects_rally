@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const updatedTicket =
     updatedProgress >= 100 && userDocData.data.ticket === "before"
       ? "publication"
-      : "before";
+      : userDocData.data.ticket;
   const updatedStatus = setStatus(updatedProgress);
 
   const updatedQuests = userDocData.data.quests;
