@@ -57,7 +57,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const updatedProgress =
     queryPram.answer === "correct" ? progress + increasePoint : progress;
-  const updatedTicket = updatedProgress >= 100 ? "publication" : "before";
+  const updatedTicket =
+    updatedProgress >= 100 && userDocData.data.ticket === "before"
+      ? "publication"
+      : "before";
   const updatedStatus = setStatus(updatedProgress);
 
   const updatedQuests = userDocData.data.quests;

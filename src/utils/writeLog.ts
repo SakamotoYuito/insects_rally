@@ -14,8 +14,8 @@ export type PlaceLog = {
   congestion: number;
 };
 
-const userLogCollection = "userLog1029";
-const placeLogCollection = "placeLog1029";
+const userLogCollection = "userLogFirstDay";
+const placeLogCollection = "placeLogFirstDay";
 
 export const writeUserLog = async (log: UserLog) => {
   await addDoc(collection(db, userLogCollection), {
