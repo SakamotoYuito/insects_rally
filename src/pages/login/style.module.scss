@@ -1,13 +1,14 @@
 .login {
   background-color: rgb(33, 183, 33);
-  height: 100vh;
-  padding: 10%;
+  height: 100%;
+  min-height: 100vh;
+  padding: 20px;
   text-align: center;
 }
 
 .title {
-  padding-top: 25%;
-  padding-bottom: 15%;
+  padding-top: 50px;
+  padding-bottom: 50px;
   font-weight: bold;
 }
 
