@@ -21,14 +21,14 @@
   color: black;
 }
 
-.link {
-  display: inline-block;
-  color: white;
-  font-weight: bold;
-  border-bottom: 2px solid white;
+.login {
+  margin-top: 20px;
+  color: black;
+  background-color: yellow;
+  border: none;
 
   &:hover {
-    color: yellow;
-    border-bottom: 2px solid yellow;
+    color: white;
+    background-color: green;
   }
 }
