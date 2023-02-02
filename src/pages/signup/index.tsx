@@ -42,11 +42,11 @@ export const useSignupPage = () => {
         feedback="ユーザーIDを入力してください"
         onSubmit={(e) => handleSubmit(e)}
         onChange={(e) => handleChangeEmail(e)}
-        buttonStr="ユーザー登録"
+        buttonStr="新規登録"
         error={error}
       />
       <Button className={styles.login} onClick={() => router.push("/login")}>
-        すでに登録している方はこちら
+        ログイン
       </Button>
     </div>
   );

@@ -38,7 +38,7 @@ export const useLoginPage = () => {
         />
       </div>
       <Button className={styles.signup} onClick={() => router.push("/signup")}>
-        初めての方はこちら
+        新規登録
       </Button>
     </div>
   );
